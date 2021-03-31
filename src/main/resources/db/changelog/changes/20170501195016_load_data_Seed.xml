@@ -3,7 +3,7 @@
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     <property name="now" value="now()" dbms="h2"/>
@@ -17,82 +17,99 @@
     <!--
         Added the entity Tag.
     -->
+  <!--
     <changeSet id="20170430002849-1" author="jhipster">
         <loadData encoding="UTF-8"
-                  file="config/liquibase/claim.csv"
+                  relativeToChangelogFile="true"
+                  file="../claim.csv"
                   separator=","
                   tableName="claim">
         </loadData>
         <loadData encoding="UTF-8"
-                  file="config/liquibase/claim-rebuttal.csv"
+                  relativeToChangelogFile="true"
+                  file="../claim-rebuttal.csv"
                   separator=","
                   tableName="claim_rebuttal">
         </loadData>
         <loadData encoding="UTF-8"
-                  file="config/liquibase/rebuttal.csv"
+                  relativeToChangelogFile="true"
+                  file="../rebuttal.csv"
                   separator=","
                   tableName="rebuttal">
         </loadData>
         <loadData encoding="UTF-8"
-                  file="config/liquibase/hero.csv"
+                  relativeToChangelogFile="true"
+                  file="../hero.csv"
                   separator=","
                   tableName="hero">
         </loadData>
         <loadData encoding="UTF-8"
-                  file="config/liquibase/crisis.csv"
+                  relativeToChangelogFile="true"
+                  file="../crisis.csv"
                   separator=","
                   tableName="crisis">
         </loadData>
         <loadData encoding="UTF-8"
-                  file="config/liquibase/contact.csv"
+                  relativeToChangelogFile="true"
+                  file="../contact.csv"
                   separator=","
                   tableName="contact">
         </loadData>
         <loadData encoding="UTF-8"
-                  file="config/liquibase/note.csv"
+                  relativeToChangelogFile="true"
+                  file="../note.csv"
                   separator=","
                   tableName="note">
         </loadData>
         <loadData encoding="UTF-8"
-                  file="config/liquibase/author.csv"
+                  relativeToChangelogFile="true"
+                  file="../author.csv"
                   separator=","
                   tableName="author">
         </loadData>
         <loadData encoding="UTF-8"
-                  file="config/liquibase/article.csv"
+                  relativeToChangelogFile="true"
+                  file="../article.csv"
                   separator=","
                   tableName="article">
         </loadData>
         <loadData encoding="UTF-8"
-                  file="config/liquibase/tag.csv"
+                  relativeToChangelogFile="true"
+                  file="../tag.csv"
                   separator=","
                   tableName="tag">
         </loadData>
         <loadData encoding="UTF-8"
-                  file="config/liquibase/article_tag.csv"
+                  relativeToChangelogFile="true"
+                  file="../article_tag.csv"
                   separator=","
                   tableName="article_tag">
         </loadData>
         <loadData encoding="UTF-8"
-                  file="config/liquibase/author_follower.csv"
+                  relativeToChangelogFile="true"
+                  file="../author_follower.csv"
                   separator=","
                   tableName="author_follower">
         </loadData>
         <loadData encoding="UTF-8"
-                  file="config/liquibase/article_favorited.csv"
+                  relativeToChangelogFile="true"
+                  file="../article_favorited.csv"
                   separator=","
                   tableName="article_favorited">
         </loadData>
         <loadData encoding="UTF-8"
-                  file="config/liquibase/comment.csv"
+                  relativeToChangelogFile="true"
+                  file="../comment.csv"
                   separator=","
                   tableName="comment">
         </loadData>
         <loadData encoding="UTF-8"
-                  file="config/liquibase/talk.csv"
+                  relativeToChangelogFile="true"
+                  file="../talk.csv"
                   separator=","
-                  tableName="talk">
+                  tableName="stalk">
         </loadData>
 
     </changeSet>
+-->
 </databaseChangeLog>
