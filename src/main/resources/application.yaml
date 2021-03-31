@@ -2,15 +2,15 @@ spring:
   liquibase: 
     enabled: false
     change-log: classpath:db/changelog/db.changelog-master.xml
-#  datasource:
-#    username: postgres
-#    password: secret
-#    url: jdbc:postgresql://localhost:5432/
+  datasource:
+    username: postgres
+    password: secret
+    url: jdbc:postgresql://server1:25432/
 ---
 spring:
   config:
     activate:
-      on-profile: liquibase-wipe
+      on-profile: liquibase-migrate
   main:
     web-application-type: none
   autoconfigure.exclude:
