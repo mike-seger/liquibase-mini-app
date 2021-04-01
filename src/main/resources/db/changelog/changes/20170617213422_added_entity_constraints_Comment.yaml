@@ -1,0 +1,19 @@
+databaseChangeLog:
+- changeSet:
+    id: 20170617213422-2
+    author: jhipster
+    objectQuotingStrategy: LEGACY
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: article_id
+        baseTableName: comment
+        constraintName: fk_comment_article_id
+        referencedColumnNames: id
+        referencedTableName: article
+    - addForeignKeyConstraint:
+        baseColumnNames: author_id
+        baseTableName: comment
+        constraintName: fk_comment_author_id
+        referencedColumnNames: id
+        referencedTableName: author
+

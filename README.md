@@ -13,8 +13,5 @@ SELECT relname as table_name, n_live_tup as row_count
     ORDER BY row_count DESC, table_name;
 
 # recreate public schema
-DROP SCHEMA public CASCADE;
-CREATE SCHEMA public;
-GRANT ALL ON SCHEMA public TO postgres;
-GRANT ALL ON SCHEMA public TO public;
+DROP SCHEMA public CASCADE; CREATE SCHEMA public; GRANT ALL ON SCHEMA public TO postgres; GRANT ALL ON SCHEMA public TO public;
 ```

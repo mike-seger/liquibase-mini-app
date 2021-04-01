@@ -1,0 +1,22 @@
+databaseChangeLog:
+- changeSet:
+    id: 20170617213420-1
+    author: jhipster
+    objectQuotingStrategy: LEGACY
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: false
+            constraints:
+              nullable: false
+              primaryKey: true
+            name: id
+            type: bigint
+        - column:
+            constraints:
+              nullable: false
+            name: name
+            type: varchar(255)
+        tableName: tag
+

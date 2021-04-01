@@ -1,0 +1,36 @@
+databaseChangeLog:
+- changeSet:
+    id: 20170501195010-1
+    author: jhipster
+    objectQuotingStrategy: LEGACY
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+            name: id
+            type: varchar(100)
+        - column:
+            constraints:
+              nullable: true
+            name: text
+            type: varchar(255)
+        - column:
+            constraints:
+              nullable: true
+            name: colour
+            type: varchar(255)
+        - column:
+            constraints:
+              nullable: true
+            name: jhi_left
+            type: integer
+        - column:
+            constraints:
+              nullable: true
+            name: jhi_top
+            type: integer
+        tableName: note
+

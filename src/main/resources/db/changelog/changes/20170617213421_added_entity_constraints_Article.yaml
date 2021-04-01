@@ -1,0 +1,37 @@
+databaseChangeLog:
+- changeSet:
+    id: 20170617213421-2
+    author: jhipster
+    objectQuotingStrategy: LEGACY
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: article_id
+        baseTableName: article_tag
+        constraintName: fk_article_tag_articles_id
+        referencedColumnNames: id
+        referencedTableName: article
+    - addForeignKeyConstraint:
+        baseColumnNames: tags_id
+        baseTableName: article_tag
+        constraintName: fk_article_tag_tags_id
+        referencedColumnNames: id
+        referencedTableName: tag
+    - addForeignKeyConstraint:
+        baseColumnNames: author_id
+        baseTableName: article
+        constraintName: fk_article_author_id
+        referencedColumnNames: id
+        referencedTableName: author
+    - addForeignKeyConstraint:
+        baseColumnNames: article_id
+        baseTableName: article_favorited
+        constraintName: fk_article_favorited_article_id
+        referencedColumnNames: id
+        referencedTableName: article
+    - addForeignKeyConstraint:
+        baseColumnNames: favorited_id
+        baseTableName: article_favorited
+        constraintName: fk_article_favorited_favoriteds_id
+        referencedColumnNames: id
+        referencedTableName: author
+

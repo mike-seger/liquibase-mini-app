@@ -1,0 +1,50 @@
+databaseChangeLog:
+- changeSet:
+    id: 20170617213422-1
+    author: jhipster
+    objectQuotingStrategy: LEGACY
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: false
+            constraints:
+              nullable: false
+              primaryKey: true
+            name: id
+            type: bigint
+        - column:
+            constraints:
+              nullable: false
+            name: jhi_body
+            type: clob
+        - column:
+            constraints:
+              nullable: false
+            name: created_at
+            type: timestamp
+        - column:
+            constraints:
+              nullable: false
+            name: updated_at
+            type: timestamp
+        - column:
+            constraints:
+              nullable: true
+            name: article_id
+            type: bigint
+        - column:
+            constraints:
+              nullable: true
+            name: author_id
+            type: bigint
+        tableName: comment
+    - dropDefaultValue:
+        columnDataType: datetime
+        columnName: created_at
+        tableName: comment
+    - dropDefaultValue:
+        columnDataType: datetime
+        columnName: updated_at
+        tableName: comment
+

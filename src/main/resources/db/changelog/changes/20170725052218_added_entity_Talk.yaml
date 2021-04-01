@@ -1,0 +1,58 @@
+databaseChangeLog:
+- property:
+    dbms: h2
+    name: now
+    value: now()
+- property:
+    dbms: postgresql
+    name: now
+    value: current_timestamp
+- property:
+    dbms: h2, postgresql
+    name: floatType
+    value: float4
+- property:
+    dbms: mysql, oracle, mssql
+    name: floatType
+    value: float
+- changeSet:
+    id: 20170725052218-1
+    author: jhipster
+    objectQuotingStrategy: LEGACY
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: false
+            constraints:
+              nullable: false
+              primaryKey: true
+            name: id
+            type: bigint
+        - column:
+            constraints:
+              nullable: false
+            name: title
+            type: varchar(255)
+        - column:
+            constraints:
+              nullable: false
+            name: speaker
+            type: varchar(255)
+        - column:
+            constraints:
+              nullable: false
+            name: description
+            type: clob
+        - column:
+            constraints:
+              nullable: true
+            name: your_rating
+            type: ${floatType}
+        - column:
+            constraints:
+              nullable: true
+            name: rating
+            type: ${floatType}
+        tableName: talk
+

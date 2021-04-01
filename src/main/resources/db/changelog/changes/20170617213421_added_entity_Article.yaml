@@ -1,0 +1,92 @@
+databaseChangeLog:
+- changeSet:
+    id: 20170617213421-1
+    author: jhipster
+    objectQuotingStrategy: LEGACY
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: false
+            constraints:
+              nullable: false
+              primaryKey: true
+            name: id
+            type: bigint
+        - column:
+            constraints:
+              nullable: false
+            name: slug
+            type: varchar(255)
+        - column:
+            constraints:
+              nullable: false
+            name: title
+            type: varchar(255)
+        - column:
+            constraints:
+              nullable: false
+            name: description
+            type: varchar(255)
+        - column:
+            constraints:
+              nullable: false
+            name: jhi_body
+            type: varchar(2147483647)
+        - column:
+            constraints:
+              nullable: false
+            name: created_at
+            type: timestamp
+        - column:
+            constraints:
+              nullable: false
+            name: updated_at
+            type: timestamp
+        - column:
+            constraints:
+              nullable: true
+            name: author_id
+            type: bigint
+        tableName: article
+    - dropDefaultValue:
+        columnDataType: datetime
+        columnName: created_at
+        tableName: article
+    - dropDefaultValue:
+        columnDataType: datetime
+        columnName: updated_at
+        tableName: article
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: tags_id
+            type: bigint
+        - column:
+            constraints:
+              nullable: false
+            name: article_id
+            type: bigint
+        tableName: article_tag
+    - addPrimaryKey:
+        columnNames: article_id, tags_id
+        tableName: article_tag
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: favorited_id
+            type: bigint
+        - column:
+            constraints:
+              nullable: false
+            name: article_id
+            type: bigint
+        tableName: article_favorited
+    - addPrimaryKey:
+        columnNames: article_id, favorited_id
+        tableName: article_favorited
+

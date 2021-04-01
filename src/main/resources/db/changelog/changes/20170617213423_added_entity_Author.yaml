@@ -1,0 +1,44 @@
+databaseChangeLog:
+- changeSet:
+    id: 20170617213423-1
+    author: jhipster
+    objectQuotingStrategy: LEGACY
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: false
+            constraints:
+              nullable: false
+              primaryKey: true
+            name: id
+            type: bigint
+        - column:
+            constraints:
+              nullable: true
+            name: bio
+            type: varchar(2147483647)
+        - column:
+            constraints:
+              nullable: true
+              unique: true
+            name: user_id
+            type: bigint
+        tableName: author
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: follower_id
+            type: bigint
+        - column:
+            constraints:
+              nullable: false
+            name: author_id
+            type: bigint
+        tableName: author_follower
+    - addPrimaryKey:
+        columnNames: author_id, follower_id
+        tableName: author_follower
+
