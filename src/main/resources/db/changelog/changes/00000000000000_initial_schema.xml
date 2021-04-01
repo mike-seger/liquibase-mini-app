@@ -91,7 +91,7 @@
                                  referencedTableName="jhi_user"/>
         <loadData encoding="UTF-8"
                   relativeToChangelogFile="true"
-                  file="../users.csv"
+                  file="../data/users.csv"
                   separator=";"
                   tableName="jhi_user">
             <column name="activated" type="boolean"/>
@@ -101,13 +101,13 @@
 
         <loadData encoding="UTF-8"
                   relativeToChangelogFile="true"
-                  file="../authorities.csv"
+                  file="../data/authorities.csv"
                   separator=";"
                   tableName="jhi_authority"/>
 
         <loadData encoding="UTF-8"
                   relativeToChangelogFile="true"
-                  file="../users_authorities.csv"
+                  file="../data/users_authorities.csv"
                   separator=";"
                   tableName="jhi_user_authority"/>
         <createTable tableName="jhi_persistent_audit_event">

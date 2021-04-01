@@ -1,16 +1,17 @@
 spring:
   liquibase: 
     enabled: false
-    change-log: classpath:db/changelog/db.changelog-master.xml
-  datasource:
+  #  change-log: classpath:db/changelog/ex.db.changelog-master.xml
+  # default datasource H2
+---
+spring.config.activate.on-profile: postgres
+spring.datasource:
     username: postgres
     password: secret
     url: jdbc:postgresql://server1:25432/
 ---
+spring.config.activate.on-profile: liquibase-migrate
 spring:
-  config:
-    activate:
-      on-profile: liquibase-migrate
   main:
     web-application-type: none
   autoconfigure.exclude:
