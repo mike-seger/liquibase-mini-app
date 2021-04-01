@@ -1,4 +1,6 @@
 
+
+# Starting a DB
 ## Postgresql
 ```
 # Start DB on port 25432
@@ -14,4 +16,13 @@ SELECT relname as table_name, n_live_tup as row_count
 
 # recreate public schema
 DROP SCHEMA public CASCADE; CREATE SCHEMA public; GRANT ALL ON SCHEMA public TO postgres; GRANT ALL ON SCHEMA public TO public;
+```
+
+# Starting the application
+```
+# Liquibase migrate
+SPRING_PROFILES_ACTIVE=liquibase-migrate ./gradlew bootRun
+
+# A few other datasources are accessible by using the appropriate profile, such as postgres
+SPRING_PROFILES_ACTIVE=liquibase-migrate,postgres ./gradlew bootRun
 ```

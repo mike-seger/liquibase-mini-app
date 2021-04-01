@@ -10,7 +10,7 @@ spring.liquibase.parameters:
 spring.datasource:
   username: postgres
   password: secret
-  url: jdbc:postgresql://server1:25432/
+  url: jdbc:postgresql://${HOST}:25432/
 ---
 spring.config.activate.on-profile: liquibase-migrate
 spring:
