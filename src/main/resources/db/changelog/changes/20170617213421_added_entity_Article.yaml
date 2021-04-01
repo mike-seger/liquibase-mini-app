@@ -32,7 +32,7 @@ databaseChangeLog:
             constraints:
               nullable: false
             name: jhi_body
-            type: varchar(2147483647)
+            type: ${clob.type}
         - column:
             constraints:
               nullable: false

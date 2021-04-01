@@ -1,12 +1,4 @@
 databaseChangeLog:
-- property:
-    dbms: h2
-    name: now
-    value: now()
-- property:
-    dbms: postgresql
-    name: now
-    value: current_timestamp
 - changeSet:
     id: '00000000000000'
     author: jhipster

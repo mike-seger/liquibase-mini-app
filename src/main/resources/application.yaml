@@ -1,16 +1,32 @@
 spring:
   liquibase:
     enabled: false
-  #  change-log: classpath:db/changelog/ex.db.changelog-master.xml
-  # default datasource H2
+---
+spring.config.activate.on-profile: h2
+spring.liquibase.parameters:
+  clob.type: varchar(2048)
+  float.type: float4
+  now: now()
 ---
 spring.config.activate.on-profile: postgres
 spring.liquibase.parameters:
-  clobType: clob
+  clob.type: varchar(2048)
+  float.type: float4
+  now: current_timestamp
 spring.datasource:
   username: postgres
   password: secret
-  url: jdbc:postgresql://${HOST}:25432/
+  url: jdbc:postgresql://localhost:25432/
+---
+spring.config.activate.on-profile: mysql
+spring.liquibase.parameters:
+  clob.type: varchar(2048)
+  float.type: float
+  now: now()
+spring.datasource:
+  username: PUBLIC
+  password: secret
+  url: jdbc:mysql://localhost:33306/PUBLIC
 ---
 spring.config.activate.on-profile: liquibase-migrate
 spring:

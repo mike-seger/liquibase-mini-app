@@ -17,7 +17,7 @@ databaseChangeLog:
             constraints:
               nullable: true
             name: bio
-            type: varchar(2147483647)
+            type: ${clob.type}
         - column:
             constraints:
               nullable: true
@@ -41,4 +41,3 @@ databaseChangeLog:
     - addPrimaryKey:
         columnNames: author_id, follower_id
         tableName: author_follower
-
