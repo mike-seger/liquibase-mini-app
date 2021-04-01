@@ -15,6 +15,19 @@ databaseChangeLog:
     dbms: mysql, oracle, mssql
     name: floatType
     value: float
+- property:
+      dbms: h2,postgresql
+      name: clob.type
+      value: varchar(2048)
+- property:
+      dbms: oracle
+      name: clob.type
+      value: clob
+- property:
+      dbms: mysql
+      name: clob.type
+      value: longtext
+
 - changeSet:
     id: 20170725052218-1
     author: jhipster
@@ -43,7 +56,7 @@ databaseChangeLog:
             constraints:
               nullable: false
             name: description
-            type: clob
+            type: ${clob.type}
         - column:
             constraints:
               nullable: true

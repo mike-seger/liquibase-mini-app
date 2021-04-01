@@ -1,14 +1,16 @@
 spring:
-  liquibase: 
+  liquibase:
     enabled: false
   #  change-log: classpath:db/changelog/ex.db.changelog-master.xml
   # default datasource H2
 ---
 spring.config.activate.on-profile: postgres
+spring.liquibase.parameters:
+  clobType: clob
 spring.datasource:
-    username: postgres
-    password: secret
-    url: jdbc:postgresql://server1:25432/
+  username: postgres
+  password: secret
+  url: jdbc:postgresql://server1:25432/
 ---
 spring.config.activate.on-profile: liquibase-migrate
 spring:

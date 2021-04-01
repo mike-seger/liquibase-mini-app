@@ -1,4 +1,18 @@
 databaseChangeLog:
+
+- property:
+    dbms: h2,postgresql
+    name: clob.type
+    value: varchar(2048)
+- property:
+    dbms: oracle
+    name: clob.type
+    value: clob
+- property:
+    dbms: mysql
+    name: clob.type
+    value: longtext
+
 - changeSet:
     id: 20170617213422-1
     author: jhipster
@@ -17,7 +31,7 @@ databaseChangeLog:
             constraints:
               nullable: false
             name: jhi_body
-            type: clob
+            type: ${clob.type}
         - column:
             constraints:
               nullable: false

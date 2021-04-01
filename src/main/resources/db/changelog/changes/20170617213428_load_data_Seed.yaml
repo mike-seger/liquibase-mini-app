@@ -87,7 +87,7 @@ databaseChangeLog:
     - loadData:
         commentLineStartsWith: '#'
         encoding: UTF-8
-        file: ../data/article_tag.csv
+        file: ../data/article-tag.csv
         quotchar: '"'
         relativeToChangelogFile: true
         separator: ','
@@ -95,7 +95,7 @@ databaseChangeLog:
     - loadData:
         commentLineStartsWith: '#'
         encoding: UTF-8
-        file: ../data/author_follower.csv
+        file: ../data/author-follower.csv
         quotchar: '"'
         relativeToChangelogFile: true
         separator: ','
@@ -103,9 +103,17 @@ databaseChangeLog:
     - loadData:
         commentLineStartsWith: '#'
         encoding: UTF-8
-        file: ../data/article_favorited.csv
+        file: ../data/comment.csv
         quotchar: '"'
         relativeToChangelogFile: true
         separator: ','
-        tableName: article_favorited
+        tableName: comment
+    - loadData:
+        commentLineStartsWith: '#'
+        encoding: UTF-8
+        file: ../data/talk.csv
+        quotchar: '"'
+        relativeToChangelogFile: true
+        separator: ','
+        tableName: talk
 

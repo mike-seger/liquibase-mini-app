@@ -173,7 +173,7 @@ databaseChangeLog:
     - loadData:
         commentLineStartsWith: '#'
         encoding: UTF-8
-        file: ../data/users_authorities.csv
+        file: ../data/users-authorities.csv
         quotchar: '"'
         relativeToChangelogFile: true
         separator: ;
