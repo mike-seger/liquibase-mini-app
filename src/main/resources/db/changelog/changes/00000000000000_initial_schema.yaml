@@ -84,20 +84,20 @@ databaseChangeLog:
             name: last_modified_date
             type: timestamp
         tableName: jhi_user
-    - createIndex:
-        columns:
-        - column:
-            name: login
-        indexName: idx_user_login
-        tableName: jhi_user
-        unique: true
-    - createIndex:
-        columns:
-        - column:
-            name: email
-        indexName: idx_user_email
-        tableName: jhi_user
-        unique: true
+#    - createIndex:
+#        columns:
+#        - column:
+#            name: login
+#        indexName: idx_user_login
+#        tableName: jhi_user
+#        unique: true
+#    - createIndex:
+#        columns:
+#        - column:
+#            name: email
+#        indexName: idx_user_email
+#        tableName: jhi_user
+#        unique: true
     - createTable:
         columns:
         - column:
@@ -135,41 +135,41 @@ databaseChangeLog:
         constraintName: fk_user_id
         referencedColumnNames: id
         referencedTableName: jhi_user
-    - loadData:
-        columns:
-        - column:
-            name: activated
-            type: boolean
-        - column:
-            name: created_date
-            type: timestamp
-        commentLineStartsWith: '#'
-        encoding: UTF-8
-        file: ../data/users.csv
-        quotchar: '"'
-        relativeToChangelogFile: true
-        separator: ;
-        tableName: jhi_user
-    - dropDefaultValue:
-        columnDataType: datetime
-        columnName: created_date
-        tableName: jhi_user
-    - loadData:
-        commentLineStartsWith: '#'
-        encoding: UTF-8
-        file: ../data/authorities.csv
-        quotchar: '"'
-        relativeToChangelogFile: true
-        separator: ;
-        tableName: jhi_authority
-    - loadData:
-        commentLineStartsWith: '#'
-        encoding: UTF-8
-        file: ../data/users-authorities.csv
-        quotchar: '"'
-        relativeToChangelogFile: true
-        separator: ;
-        tableName: jhi_user_authority
+#    - loadData:
+#        columns:
+#        - column:
+#            name: activated
+#            type: boolean
+#        - column:
+#            name: created_date
+#            type: timestamp
+#        commentLineStartsWith: '#'
+#        encoding: UTF-8
+#        file: ../data/users.csv
+#        quotchar: '"'
+#        relativeToChangelogFile: true
+#        separator: ;
+#        tableName: jhi_user
+#    - dropDefaultValue:
+#        columnDataType: datetime
+#        columnName: created_date
+#        tableName: jhi_user
+#    - loadData:
+#        commentLineStartsWith: '#'
+#        encoding: UTF-8
+#        file: ../data/authorities.csv
+#        quotchar: '"'
+#        relativeToChangelogFile: true
+#        separator: ;
+#        tableName: jhi_authority
+#    - loadData:
+#        commentLineStartsWith: '#'
+#        encoding: UTF-8
+#        file: ../data/users-authorities.csv
+#        quotchar: '"'
+#        relativeToChangelogFile: true
+#        separator: ;
+#        tableName: jhi_user_authority
     - createTable:
         columns:
         - column:
@@ -210,22 +210,6 @@ databaseChangeLog:
     - addPrimaryKey:
         columnNames: event_id, name
         tableName: jhi_persistent_audit_evt_data
-    - createIndex:
-        columns:
-        - column:
-            name: principal
-        - column:
-            name: event_date
-        indexName: idx_persistent_audit_event
-        tableName: jhi_persistent_audit_event
-        unique: false
-    - createIndex:
-        columns:
-        - column:
-            name: event_id
-        indexName: idx_persistent_audit_evt_data
-        tableName: jhi_persistent_audit_evt_data
-        unique: false
     - addForeignKeyConstraint:
         baseColumnNames: event_id
         baseTableName: jhi_persistent_audit_evt_data
@@ -292,3 +276,77 @@ databaseChangeLog:
         columnNames: user_id, provider_id, rank
         tableName: jhi_social_user_connection
 
+- changeSet:
+    id: '00000000000002'
+    author: jhipster
+    objectQuotingStrategy: LEGACY
+    changes:
+    - preConditions:
+        - onFail: CONTINUE
+          not:
+            - indexExists:
+                indexName: idx_persistent_audit_event
+    - createIndex:
+        columns:
+        - column:
+            name: principal
+        - column:
+            name: event_date
+        indexName: idx_persistent_audit_event
+        tableName: jhi_persistent_audit_event
+        unique: false
+
+- changeSet:
+    id: '00000000000003'
+    author: jhipster
+    objectQuotingStrategy: LEGACY
+    changes:
+    - preConditions:
+        - onFail: CONTINUE
+          not:
+            - indexExists:
+                indexName: idx_persistent_audit_evt_data
+    - createIndex:
+        columns:
+        - column:
+            name: event_id
+        indexName: idx_persistent_audit_evt_data
+        tableName: jhi_persistent_audit_evt_data
+        unique: false
+
+
+#- changeSet:
+#    id: '00000000000004'
+#    author: jhipster
+#    objectQuotingStrategy: LEGACY
+#    changes:
+#    - preConditions:
+#        - onFail: CONTINUE
+#          not:
+#            - indexExists:
+#                indexName: idx_user_login1
+#    - createIndex:
+#        columns:
+#        - column:
+#            name: login
+#        indexName: idx_user_login1
+#        tableName: jhi_user
+#        unique: true
+#
+#- changeSet:
+#    id: '00000000000005'
+#    author: jhipster
+#    objectQuotingStrategy: LEGACY
+#    changes:
+#    - preConditions:
+#        - onFail: CONTINUE
+#          not:
+#            - indexExists:
+#                indexName: idx_user_email1
+#    - createIndex:
+#        columns:
+#        - column:
+#            name: email
+#        indexName: idx_user_email1
+#        tableName: jhi_user
+#        unique: true

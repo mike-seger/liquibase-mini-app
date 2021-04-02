@@ -25,13 +25,13 @@ databaseChangeLog:
     - addForeignKeyConstraint:
         baseColumnNames: article_id
         baseTableName: article_favorited
-        constraintName: fk_article_favorited_article_id
+        constraintName: fk_art_fav_article_id
         referencedColumnNames: id
         referencedTableName: article
     - addForeignKeyConstraint:
         baseColumnNames: favorited_id
         baseTableName: article_favorited
-        constraintName: fk_article_favorited_favoriteds_id
+        constraintName: fk_art_fav_favoriteds_id
         referencedColumnNames: id
         referencedTableName: author
 
