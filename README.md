@@ -1,11 +1,22 @@
 # DB servers
 ## Postgresql
 ```
+# source shell convenience functions to manage DB in docker
+. src/test/resources/db/postgres/utils.sh
+
+postgres_run_server
+postgres_run_sql
+postgres_init_schema
+postgres_table_count_rows
+
 # Start DB on port 25432
-docker run --name local-pg -p 25432:5432 -e POSTGRES_PASSWORD=secret -d postgres:alpine
+postgres_run_server 25432
 
 # Connect to DB on port 25432
-docker run --rm -it postgres psql postgresql://postgres:secret@$(hostname):25432/
+docker exec -it local-pg psql -U postgres
+    
+# re-initialize DB with user/schema public1
+postgres_init_schema
 
 # Show table statistics
 SELECT relname as table_name, n_live_tup as row_count
@@ -18,6 +29,9 @@ DROP SCHEMA public CASCADE; CREATE SCHEMA public; GRANT ALL ON SCHEMA public TO 
 
 ## MySQL
 ```
+# source shell convenience functions to manage DB in docker
+. src/test/resources/db/mysql/utils.sh
+
 # Start DB on port 33306
 docker run --name local-mysql -p 33306:3306 -e MYSQL_ROOT_PASSWORD=secret \
     -e MYSQL_DATABASE=PUBLIC -e MYSQL_USER=PUBLIC -e MYSQL_PASSWORD=secret -d mysql
@@ -37,23 +51,25 @@ docker exec -i local-mysql sh -c 'MYSQL_PWD=secret mysql --force -uroot' <<< \
 
 ## Oracle
 ```
-# https://catonrug.blogspot.com/2019/12/run-oracle-xe-11g-via-docker.html
-# Start DB on port 49161
-docker run --name local-oracle -d -p 49521:1521 -e ORACLE_PWD=secret -e ORACLE_DISABLE_ASYNCH_IO=true \
-    -e ORACLE_CHARACTERSET=utf8 -e ORACLE_ALLOW_REMOTE=true oracleinanutshell/oracle-xe-11g:1.0.0
-
-# source shell convenience functions to run sql commands against DB
+# source shell convenience functions to manage DB in docker
 . src/test/resources/db/oracle/utils.sh
+
+# Start DB on port 49521
+oracle_run_server 49521
     
 # re-initialize DB with user/schema public1
-oracleDockerSqlPlus "sys/oracle@XE as sysdba" "WHENEVER SQLERROR CONTINUE;\nDROP USER public1 CASCADE;\nCREATE USER PUBLIC1 IDENTIFIED BY secret;\nGRANT CONNECT, RESOURCE, DBA TO PUBLIC1;"
+oracle_init_schema
 
-# Show table statistics
-oracleTableCountRows "public1/secret@XE"
+# Show table row count
+oracle_table_count_rows
         
 # Run interactive sqlplus against local-oracle
 docker exec -it local-oracle bash
 sqlplus public1/secret@XE
+
+# More info
+# https://hub.docker.com/r/oracleinanutshell/oracle-xe-11g
+# https://catonrug.blogspot.com/2019/12/run-oracle-xe-11g-via-docker.html
 ```
 
 # Start a liquibase migration

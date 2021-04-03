@@ -45,7 +45,7 @@ spring.liquibase.parameters:
   float.type: float
   now: sysdate
 spring.datasource:
-  username: public1
+  username: PUBLIC1
   password: secret
   url: jdbc:oracle:thin:@localhost:49521:xe
 ---

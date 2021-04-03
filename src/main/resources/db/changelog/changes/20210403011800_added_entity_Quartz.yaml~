@@ -1,0 +1,622 @@
+databaseChangeLog:
+- changeSet:
+    id: quartz-init
+    author: quartz
+    objectQuotingStrategy: legacy
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: sched_name
+            type: varchar(120)
+        - column:
+            constraints:
+              nullable: false
+            name: lock_name
+            type: varchar(40)
+        tableName: qrtz_locks
+    - addPrimaryKey:
+        columnNames: sched_name, lock_name
+        tableName: qrtz_locks
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: sched_name
+            type: varchar(120)
+        - column:
+            constraints:
+              nullable: false
+            name: entry_id
+            type: varchar(95)
+        - column:
+            constraints:
+              nullable: false
+            name: trigger_name
+            type: varchar(200)
+        - column:
+            constraints:
+              nullable: false
+            name: trigger_group
+            type: varchar(200)
+        - column:
+            constraints:
+              nullable: false
+            name: instance_name
+            type: varchar(200)
+        - column:
+            constraints:
+              nullable: false
+            name: fired_time
+            type: bigint
+        - column:
+            constraints:
+              nullable: false
+            name: sched_time
+            type: bigint
+        - column:
+            constraints:
+              nullable: false
+            name: priority
+            type: integer
+        - column:
+            constraints:
+              nullable: false
+            name: state
+            type: varchar(16)
+        - column:
+            name: job_name
+            type: varchar(200)
+        - column:
+            name: job_group
+            type: varchar(200)
+        - column:
+            name: is_nonconcurrent
+            type: boolean
+        - column:
+            name: requests_recovery
+            type: boolean
+        tableName: qrtz_fired_triggers
+    - addPrimaryKey:
+        columnNames: sched_name, entry_id
+        tableName: qrtz_fired_triggers
+    - createIndex:
+        columns:
+        - column:
+            name: sched_name
+        - column:
+            name: instance_name
+        - column:
+            name: requests_recovery
+        indexName: idx_qrtz_ft_job_req_rcvry
+        tableName: qrtz_fired_triggers
+    - createIndex:
+        columns:
+        - column:
+            name: sched_name
+        - column:
+            name: job_name
+        - column:
+            name: job_group
+        indexName: idx_qrtz_ft_j_g
+        tableName: qrtz_fired_triggers
+    - createIndex:
+        columns:
+        - column:
+            name: sched_name
+        - column:
+            name: job_group
+        indexName: idx_qrtz_ft_jg
+        tableName: qrtz_fired_triggers
+    - createIndex:
+        columns:
+        - column:
+            name: sched_name
+        - column:
+            name: trigger_name
+        - column:
+            name: trigger_group
+        indexName: idx_qrtz_ft_t_g
+        tableName: qrtz_fired_triggers
+    - createIndex:
+        columns:
+        - column:
+            name: sched_name
+        - column:
+            name: trigger_group
+        indexName: idx_qrtz_ft_tg
+        tableName: qrtz_fired_triggers
+    - createIndex:
+        columns:
+        - column:
+            name: sched_name
+        - column:
+            name: instance_name
+        indexName: idx_qrtz_ft_trig_name
+        tableName: qrtz_fired_triggers
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: sched_name
+            type: varchar(120)
+        - column:
+            constraints:
+              nullable: false
+            name: calendar_name
+            type: varchar(200)
+        - column:
+            constraints:
+              nullable: false
+            name: calendar
+            type: blob
+        tableName: qrtz_calendars
+    - addPrimaryKey:
+        columnNames: sched_name, calendar_name
+        tableName: qrtz_calendars
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: sched_name
+            type: varchar(120)
+        - column:
+            constraints:
+              nullable: false
+            name: trigger_group
+            type: varchar(200)
+        tableName: qrtz_paused_trigger_grps
+    - addPrimaryKey:
+        columnNames: sched_name, trigger_group
+        tableName: qrtz_paused_trigger_grps
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: sched_name
+            type: varchar(120)
+        - column:
+            constraints:
+              nullable: false
+            name: instance_name
+            type: varchar(200)
+        - column:
+            constraints:
+              nullable: false
+            name: last_checkin_time
+            type: bigint
+        - column:
+            constraints:
+              nullable: false
+            name: checkin_interval
+            type: bigint
+        tableName: qrtz_scheduler_state
+    - addPrimaryKey:
+        columnNames: sched_name, instance_name
+        tableName: qrtz_scheduler_state
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: sched_name
+            type: varchar(120)
+        - column:
+            constraints:
+              nullable: false
+            name: job_name
+            type: varchar(200)
+        - column:
+            constraints:
+              nullable: false
+            name: job_group
+            type: varchar(200)
+        - column:
+            name: description
+            type: varchar(250)
+        - column:
+            constraints:
+              nullable: false
+            name: job_class_name
+            type: varchar(250)
+        - column:
+            constraints:
+              nullable: false
+            name: is_durable
+            type: boolean
+        - column:
+            constraints:
+              nullable: false
+            name: is_nonconcurrent
+            type: boolean
+        - column:
+            constraints:
+              nullable: false
+            name: is_update_data
+            type: boolean
+        - column:
+            constraints:
+              nullable: false
+            name: requests_recovery
+            type: boolean
+        - column:
+            name: job_data
+            type: blob
+        tableName: qrtz_job_details
+    - addPrimaryKey:
+        columnNames: sched_name, job_name, job_group
+        tableName: qrtz_job_details
+    - createIndex:
+        columns:
+        - column:
+            name: sched_name
+        - column:
+            name: job_group
+        indexName: idx_qrtz_j_grp
+        tableName: qrtz_job_details
+    - createIndex:
+        columns:
+        - column:
+            name: sched_name
+        - column:
+            name: requests_recovery
+        indexName: idx_qrtz_j_req_recov
+        tableName: qrtz_job_details
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: sched_name
+            type: varchar(120)
+        - column:
+            constraints:
+              nullable: false
+            name: trigger_name
+            type: varchar(200)
+        - column:
+            constraints:
+              nullable: false
+            name: trigger_group
+            type: varchar(200)
+        - column:
+            constraints:
+              nullable: false
+            name: job_name
+            type: varchar(200)
+        - column:
+            constraints:
+              nullable: false
+            name: job_group
+            type: varchar(200)
+        - column:
+            name: description
+            type: varchar(250)
+        - column:
+            name: next_fire_time
+            type: bigint
+        - column:
+            name: prev_fire_time
+            type: bigint
+        - column:
+            name: priority
+            type: integer
+        - column:
+            constraints:
+              nullable: false
+            name: trigger_state
+            type: varchar(16)
+        - column:
+            constraints:
+              nullable: false
+            name: trigger_type
+            type: varchar(8)
+        - column:
+            constraints:
+              nullable: false
+            name: start_time
+            type: bigint
+        - column:
+            name: end_time
+            type: bigint
+        - column:
+            name: calendar_name
+            type: varchar(200)
+        - column:
+            name: misfire_instr
+            type: smallint
+        - column:
+            name: job_data
+            type: blob
+        tableName: qrtz_triggers
+    - addPrimaryKey:
+        columnNames: sched_name, trigger_name, trigger_group
+        tableName: qrtz_triggers
+    - createIndex:
+        columns:
+        - column:
+            name: sched_name
+        - column:
+            name: calendar_name
+        indexName: idx_qrtz_t_c
+        tableName: qrtz_triggers
+    - createIndex:
+        columns:
+        - column:
+            name: sched_name
+        - column:
+            name: trigger_group
+        indexName: idx_qrtz_t_g
+        tableName: qrtz_triggers
+    - createIndex:
+        columns:
+        - column:
+            name: sched_name
+        - column:
+            name: job_group
+        indexName: idx_qrtz_t_jg
+        tableName: qrtz_triggers
+    - createIndex:
+        columns:
+        - column:
+            name: sched_name
+        - column:
+            name: trigger_group
+        - column:
+            name: trigger_state
+        indexName: idx_qrtz_t_n_g_state
+        tableName: qrtz_triggers
+    - createIndex:
+        columns:
+        - column:
+            name: sched_name
+        - column:
+            name: trigger_name
+        - column:
+            name: trigger_group
+        - column:
+            name: trigger_state
+        indexName: idx_qrtz_t_n_state
+        tableName: qrtz_triggers
+    - createIndex:
+        columns:
+        - column:
+            name: sched_name
+        - column:
+            name: next_fire_time
+        indexName: idx_qrtz_t_nxt_fire_time
+        tableName: qrtz_triggers
+    - createIndex:
+        columns:
+        - column:
+            name: sched_name
+        - column:
+            name: misfire_instr
+        - column:
+            name: next_fire_time
+        indexName: idx_qrtz_t_nft_misfire
+        tableName: qrtz_triggers
+    - createIndex:
+        columns:
+        - column:
+            name: sched_name
+        - column:
+            name: trigger_state
+        - column:
+            name: next_fire_time
+        indexName: idx_qrtz_t_nft_st
+        tableName: qrtz_triggers
+    - createIndex:
+        columns:
+        - column:
+            name: sched_name
+        - column:
+            name: misfire_instr
+        - column:
+            name: next_fire_time
+        - column:
+            name: trigger_state
+        indexName: idx_qrtz_t_st_misfire
+        tableName: qrtz_triggers
+    - createIndex:
+        columns:
+        - column:
+            name: sched_name
+        - column:
+            name: misfire_instr
+        - column:
+            name: next_fire_time
+        - column:
+            name: trigger_group
+        - column:
+            name: trigger_state
+        indexName: idx_qrtz_t_st_misfire_grp
+        tableName: qrtz_triggers
+    - createIndex:
+        columns:
+        - column:
+            name: sched_name
+        - column:
+            name: trigger_state
+        indexName: idx_qrtz_t_state
+        tableName: qrtz_triggers
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: sched_name
+            type: varchar(120)
+        - column:
+            constraints:
+              nullable: false
+            name: trigger_name
+            type: varchar(200)
+        - column:
+            constraints:
+              nullable: false
+            name: trigger_group
+            type: varchar(200)
+        - column:
+            name: blob_data
+            type: blob
+        tableName: qrtz_blob_triggers
+    - addPrimaryKey:
+        columnNames: sched_name, trigger_name, trigger_group
+        tableName: qrtz_blob_triggers
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: sched_name
+            type: varchar(120)
+        - column:
+            constraints:
+              nullable: false
+            name: trigger_name
+            type: varchar(200)
+        - column:
+            constraints:
+              nullable: false
+            name: trigger_group
+            type: varchar(200)
+        - column:
+            name: str_prop_1
+            type: varchar(512)
+        - column:
+            name: str_prop_2
+            type: varchar(512)
+        - column:
+            name: str_prop_3
+            type: varchar(512)
+        - column:
+            name: int_prop_1
+            type: integer
+        - column:
+            name: int_prop_2
+            type: integer
+        - column:
+            name: long_prop_1
+            type: bigint
+        - column:
+            name: long_prop_2
+            type: bigint
+        - column:
+            name: dec_prop_1
+            type: numeric(13,4)
+        - column:
+            name: dec_prop_2
+            type: numeric(13,4)
+        - column:
+            name: bool_prop_1
+            type: boolean
+        - column:
+            name: bool_prop_2
+            type: boolean
+        tableName: qrtz_simprop_triggers
+    - addPrimaryKey:
+        columnNames: sched_name, trigger_name, trigger_group
+        tableName: qrtz_simprop_triggers
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: sched_name
+            type: varchar(120)
+        - column:
+            constraints:
+              nullable: false
+            name: trigger_name
+            type: varchar(200)
+        - column:
+            constraints:
+              nullable: false
+            name: trigger_group
+            type: varchar(200)
+        - column:
+            constraints:
+              nullable: false
+            name: cron_expression
+            type: varchar(120)
+        - column:
+            name: time_zone_id
+            type: varchar(80)
+        tableName: qrtz_cron_triggers
+    - addPrimaryKey:
+        columnNames: sched_name, trigger_name, trigger_group
+        tableName: qrtz_cron_triggers
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: sched_name
+            type: varchar(120)
+        - column:
+            constraints:
+              nullable: false
+            name: trigger_name
+            type: varchar(200)
+        - column:
+            constraints:
+              nullable: false
+            name: trigger_group
+            type: varchar(200)
+        - column:
+            constraints:
+              nullable: false
+            name: repeat_count
+            type: bigint
+        - column:
+            constraints:
+              nullable: false
+            name: repeat_interval
+            type: bigint
+        - column:
+            constraints:
+              nullable: false
+            name: times_triggered
+            type: bigint
+        tableName: qrtz_simple_triggers
+    - addPrimaryKey:
+        columnNames: sched_name, trigger_name, trigger_group
+        tableName: qrtz_simple_triggers
+    - addForeignKeyConstraint:
+        baseColumnNames: sched_name, job_name, job_group
+        baseTableName: qrtz_triggers
+        constraintName: qrtz_trg_sched_name_fkey
+        referencedColumnNames: sched_name, job_name, job_group
+        referencedTableName: qrtz_job_details
+    - addForeignKeyConstraint:
+        baseColumnNames: sched_name, trigger_name, trigger_group
+        baseTableName: qrtz_simple_triggers
+        constraintName: qrtz_smpl_trg_sched_name_fkey
+        referencedColumnNames: sched_name, trigger_name, trigger_group
+        referencedTableName: qrtz_triggers
+    - addForeignKeyConstraint:
+        baseColumnNames: sched_name, trigger_name, trigger_group
+        baseTableName: qrtz_cron_triggers
+        constraintName: qrtz_cron_trg_sched_name_fkey
+        referencedColumnNames: sched_name, trigger_name, trigger_group
+        referencedTableName: qrtz_triggers
+    - addForeignKeyConstraint:
+        baseColumnNames: sched_name, trigger_name, trigger_group
+        baseTableName: qrtz_simprop_triggers
+        constraintName: qrtz_smprp_trg_sched_name_fkey
+        referencedColumnNames: sched_name, trigger_name, trigger_group
+        referencedTableName: qrtz_triggers
+    - addForeignKeyConstraint:
+        baseColumnNames: sched_name, trigger_name, trigger_group
+        baseTableName: qrtz_blob_triggers
+        constraintName: qrtz_blb_trg_schd_name_fkey
+        referencedColumnNames: sched_name, trigger_name, trigger_group
+        referencedTableName: qrtz_triggers
+
