@@ -40,16 +40,16 @@ docker exec -i local-mysql sh -c 'MYSQL_PWD=secret mysql --force -uroot' <<< \
 # https://catonrug.blogspot.com/2019/12/run-oracle-xe-11g-via-docker.html
 # Start DB on port 49161
 docker run --name local-oracle -d -p 49521:1521 -e ORACLE_PWD=secret -e ORACLE_DISABLE_ASYNCH_IO=true \
-    -e ORACLE_CHARACTERSET=utf8 -e ORACLE_ALLOW_REMOTE=true oracleinanutshell/oracle-xe-11g
+    -e ORACLE_CHARACTERSET=utf8 -e ORACLE_ALLOW_REMOTE=true oracleinanutshell/oracle-xe-11g:1.0.0
 
 # source shell convenience functions to run sql commands against DB
 . src/test/resources/db/oracle/utils.sh
     
 # re-initialize DB with user/schema public1
-dockerSqlPlus "sys/oracle@XE as sysdba" "DROP USER public1 CASCADE;\nCREATE USER PUBLIC1 IDENTIFIED BY secret;\nGRANT CONNECT, RESOURCE, DBA  TO PUBLIC1;"
+oracleDockerSqlPlus "sys/oracle@XE as sysdba" "WHENEVER SQLERROR CONTINUE;\nDROP USER public1 CASCADE;\nCREATE USER PUBLIC1 IDENTIFIED BY secret;\nGRANT CONNECT, RESOURCE, DBA TO PUBLIC1;"
 
 # Show table statistics
-oracleTableSizes "public1/secret@XE"
+oracleTableCountRows "public1/secret@XE"
         
 # Run interactive sqlplus against local-oracle
 docker exec -it local-oracle bash

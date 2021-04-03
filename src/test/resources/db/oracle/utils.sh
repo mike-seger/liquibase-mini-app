@@ -1,4 +1,4 @@
-function dockerSqlPlus() {
+function oracleDockerSqlPlus() {
     docker exec -it local-oracle bash -c \
         '
         cat /dev/null >run.sql
@@ -18,7 +18,7 @@ function dockerSqlPlus() {
         '
 }
 
-function oracleTableSizes() {
+function oracleTableCountRows() {
   dockerSqlPlus "$1" "SELECT table_name, to_number(extractvalue(xmltype(
     dbms_xmlgen.getxml('select count(*) c from '||chr(34)||table_name||chr(34))),'/ROWSET/ROW/C')) row_count
     FROM user_tables
