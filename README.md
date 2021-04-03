@@ -9,9 +9,9 @@ The DBs are run in docker and can be managed by the provided convenience scripts
 . src/test/resources/db/postgres/utils.sh
 
 postgres_run_server 25432
-postgres_init_schema
 postgres_sql_shell
 postgres_table_count_rows
+postgres_init_schema
 ```
 
 ## MySQL
@@ -20,9 +20,9 @@ postgres_table_count_rows
 . src/test/resources/db/mysql/utils.sh
 
 mysql_run_server 33306
-mysql_init_schema
 mysql_sql_shell
 mysql_table_count_rows
+mysql_init_schema
 ```
 
 ## Oracle
@@ -31,9 +31,9 @@ mysql_table_count_rows
 . src/test/resources/db/oracle/utils.sh
 
 oracle_run_server 49521
-oracle_init_schema
 oracle_sql_shell
 oracle_table_count_rows
+oracle_init_schema
 ```
 More info:
 - https://hub.docker.com/r/oracleinanutshell/oracle-xe-11g
