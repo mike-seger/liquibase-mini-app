@@ -19,7 +19,7 @@ function oracleDockerSqlPlus() {
 }
 
 function oracleTableCountRows() {
-  dockerSqlPlus "$1" "SELECT table_name, to_number(extractvalue(xmltype(
+  oracleDockerSqlPlus "$1" "SELECT table_name, to_number(extractvalue(xmltype(
     dbms_xmlgen.getxml('select count(*) c from '||chr(34)||table_name||chr(34))),'/ROWSET/ROW/C')) row_count
     FROM user_tables
     WHERE iot_type IS NULL

@@ -1,4 +1,4 @@
-# Starting a DB
+# DB servers
 ## Postgresql
 ```
 # Start DB on port 25432
@@ -60,7 +60,7 @@ sqlplus public1/secret@XE
 ```
 SPRING_PROFILES_ACTIVE=liquibase-migrate,h2 ./gradlew bootRun
 ```
-h2 can alternatively be one of the following profiles:
+Instead of h2, one of the following profiles can be used:
 - postgres
 - mysql
 - oracle (work in progress)
