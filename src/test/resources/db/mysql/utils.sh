@@ -1,7 +1,7 @@
 function mysql_run_server() {
-  docker rm -f local-mysql && \
-  docker run --name local-mysql -p $1:3306 -e MYSQL_ROOT_PASSWORD=secret \
-    -e MYSQL_DATABASE=PUBLIC -e MYSQL_USER=PUBLIC -e MYSQL_PASSWORD=secret -d mysql:8.0.23
+  docker rm -f local-mysql &&
+    docker run --name local-mysql -p $1:3306 -e MYSQL_ROOT_PASSWORD=secret \
+      -e MYSQL_DATABASE=PUBLIC -e MYSQL_USER=PUBLIC -e MYSQL_PASSWORD=secret -d mysql:8.0.23
 }
 
 function mysql_run_sql() {
@@ -10,6 +10,10 @@ function mysql_run_sql() {
     echo "'"$2"'" >$run_sql
     mysql '"$1"' <$run_sql
     '
+}
+
+function mysql_sql_shell() {
+  docker exec -it local-mysql mysql -u PUBLIC -psecret
 }
 
 function mysql_init_schema() {

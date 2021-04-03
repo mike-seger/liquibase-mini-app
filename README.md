@@ -4,27 +4,17 @@
 # source shell convenience functions to manage DB in docker
 . src/test/resources/db/postgres/utils.sh
 
-postgres_run_server
-postgres_run_sql
-postgres_init_schema
-postgres_table_count_rows
-
 # Start DB on port 25432
 postgres_run_server 25432
 
-# Connect to DB on port 25432
-docker exec -it local-pg psql -U postgres
+# Connect to DB
+postgres_sql_shell
     
-# re-initialize DB with user/schema public1
+# Re-initialize user/schema public1
 postgres_init_schema
 
-# Show table statistics
-SELECT relname as table_name, n_live_tup as row_count
-    FROM pg_stat_user_tables WHERE schemaname='public' 
-    ORDER BY row_count DESC, table_name;
-
-# recreate public schema
-DROP SCHEMA public CASCADE; CREATE SCHEMA public; GRANT ALL ON SCHEMA public TO postgres; GRANT ALL ON SCHEMA public TO public;
+# Count table rows
+postgres_table_count_rows
 ```
 
 ## MySQL
@@ -33,20 +23,16 @@ DROP SCHEMA public CASCADE; CREATE SCHEMA public; GRANT ALL ON SCHEMA public TO 
 . src/test/resources/db/mysql/utils.sh
 
 # Start DB on port 33306
-docker run --name local-mysql -p 33306:3306 -e MYSQL_ROOT_PASSWORD=secret \
-    -e MYSQL_DATABASE=PUBLIC -e MYSQL_USER=PUBLIC -e MYSQL_PASSWORD=secret -d mysql
+mysql_run_server 33306
 
-# Connect to DB on port 33306
-docker run -it mysql mysql -h $(hostname) -P 33306 -uPUBLIC -psecret
+# Run SQL shell in local-mysql
+mysql_sql_shell
 
-# Show table statistics
-SELECT * FROM (SELECT TABLE_NAME,SUM(TABLE_ROWS) AS row_count 
-    FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = DATABASE() 
-    GROUP BY TABLE_NAME) T ORDER BY row_count DESC, TABLE_NAME;
+# Count table rows
+mysql_table_count_rows
 
-# recreate the PUBLIC schema
-docker exec -i local-mysql sh -c 'MYSQL_PWD=secret mysql --force -uroot' <<< \
-    "DROP DATABASE PUBLIC; CREATE DATABASE PUBLIC; GRANT ALL PRIVILEGES ON PUBLIC.* TO 'PUBLIC'@'%';"
+# Re-initialize the PUBLIC schema
+mysql_init_schema
 ```
 
 ## Oracle
@@ -57,15 +43,14 @@ docker exec -i local-mysql sh -c 'MYSQL_PWD=secret mysql --force -uroot' <<< \
 # Start DB on port 49521
 oracle_run_server 49521
     
-# re-initialize DB with user/schema public1
+# Re-initialize DB with user/schema public1
 oracle_init_schema
 
-# Show table row count
+# Count table rows
 oracle_table_count_rows
         
 # Run interactive sqlplus against local-oracle
-docker exec -it local-oracle bash
-sqlplus public1/secret@XE
+oracle_sql_shell
 
 # More info
 # https://hub.docker.com/r/oracleinanutshell/oracle-xe-11g
