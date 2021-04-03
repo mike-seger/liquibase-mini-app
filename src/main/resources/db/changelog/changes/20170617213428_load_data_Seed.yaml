@@ -1,6 +1,6 @@
 databaseChangeLog:
     - changeSet:
-        id: 20170430002849-1
+        id: 20170430002848-1
         author: jhipster
         objectQuotingStrategy: LEGACY
         changes:
@@ -116,4 +116,3 @@ databaseChangeLog:
             relativeToChangelogFile: true
             separator: ','
             tableName: talk
-

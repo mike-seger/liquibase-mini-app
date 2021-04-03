@@ -45,9 +45,9 @@ spring.liquibase.parameters:
   float.type: float
   now: sysdate
 spring.datasource:
-  username: system
-  password: oracle
-  url: jdbc:oracle:thin:@localhost:49521/xe
+  username: public1
+  password: secret
+  url: jdbc:oracle:thin:@localhost:49521:xe
 ---
 spring.config.activate.on-profile: liquibase-migrate
 spring:

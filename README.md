@@ -42,52 +42,26 @@ docker exec -i local-mysql sh -c 'MYSQL_PWD=secret mysql --force -uroot' <<< \
 docker run --name local-oracle -d -p 49521:1521 -e ORACLE_PWD=secret -e ORACLE_DISABLE_ASYNCH_IO=true \
     -e ORACLE_CHARACTERSET=utf8 -e ORACLE_ALLOW_REMOTE=true oracleinanutshell/oracle-xe-11g
 
-# Connect
+# source shell convenience functions to run sql commands against DB
+. src/test/resources/db/oracle/utils.sh
+    
+# re-initialize DB with user/schema public1
+dockerSqlPlus "sys/oracle@XE as sysdba" "DROP USER public1 CASCADE;\nCREATE USER PUBLIC1 IDENTIFIED BY secret;\nGRANT CONNECT, RESOURCE, DBA  TO PUBLIC1;"
+
+# Show table statistics
+oracleTableSizes "public1/secret@XE"
+        
+# Run interactive sqlplus against local-oracle
 docker exec -it local-oracle bash
-# sqlplus sys as sysdba
-# enter 'oracle' as password
-
-# -v [<host mount point>:]/opt/oracle/oradata \
-
-drop table system.article cascade constraints;
-drop table system.article_favorited cascade constraints;
-drop table system.article_tag cascade constraints;
-drop table system.author cascade constraints;
-drop table system.author_follower cascade constraints;
-drop table system.claim cascade constraints;
-drop table system.claim_rebuttal cascade constraints;
-drop table system."comment" cascade constraints;
-drop table system.contact cascade constraints;
-drop table system.crisis cascade constraints;
-drop table system.hero cascade constraints;
-drop table system.jhi_authority cascade constraints;
-drop table system.jhi_persistent_audit_event cascade constraints;
-drop table system.jhi_persistent_audit_evt_data cascade constraints;
-drop table system.jhi_social_user_connection cascade constraints;
-drop table system.jhi_user cascade constraints;
-drop table system.jhi_user_authority cascade constraints;
-drop table system.message cascade constraints;
-drop table system.note cascade constraints;
-drop table system.rebuttal cascade constraints;
-drop table system.tag cascade constraints;
-drop table system.talk cascade constraints;
-drop table system.databasechangelog cascade constraints;
-drop table system.databasechangeloglock cascade constraints;
-drop sequence system.hibernate_sequence;
-
+sqlplus public1/secret@XE
 ```
 
 # Start a liquibase migration
 ```
-SPRING_PROFILES_ACTIVE=liquibase-migrate,<ds-profile> ./gradlew bootRun
+SPRING_PROFILES_ACTIVE=liquibase-migrate,h2 ./gradlew bootRun
 ```
-ds-profile is one of:
-- h2
+h2 can alternatively be one of the following profiles:
 - postgres
 - mysql
 - oracle (work in progress)
-
-# so e.g.:
-```
-SPRING_PROFILES_ACTIVE=liquibase-migrate,postgres ./gradlew bootRun
 ```
