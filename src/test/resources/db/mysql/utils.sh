@@ -1,6 +1,6 @@
 function mysql_run_server() {
-  docker rm -f local-mysql &&
-    docker run --name local-mysql -p $1:3306 -e MYSQL_ROOT_PASSWORD=secret \
+  docker rm -f local-mysql
+  docker run --name local-mysql -p $1:3306 -e MYSQL_ROOT_PASSWORD=secret \
       -e MYSQL_DATABASE=PUBLIC -e MYSQL_USER=PUBLIC -e MYSQL_PASSWORD=secret -d mysql:8.0.23
 }
 

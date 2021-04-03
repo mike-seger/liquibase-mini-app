@@ -11,8 +11,9 @@ function oracle_init_schema() {
 }
 
 function oracle_run_server() {
-  docker rm -f $ORA_NAME && \
-  docker run --name $ORA_NAME -d -p $1:1521 -e ORACLE_PWD="$ORA_DB_PWD" -e ORACLE_DISABLE_ASYNCH_IO=true \
+  docker rm -f $ORA_NAME
+  docker run --name $ORA_NAME -d -p $1:1521 -e TZ=UTC --env JAVA_OPTS="-Doracle.jdbc.timezoneAsRegion=false -Duser.timezone=UTC" \
+    -e ORACLE_PWD="$ORA_DB_PWD" -e ORACLE_DISABLE_ASYNCH_IO=true \
     -e ORACLE_CHARACTERSET=utf8 -e ORACLE_ALLOW_REMOTE=true oracleinanutshell/oracle-xe-11g:1.0.0
   echo "Started DB server. Waiting for initialization"
   sleep 25

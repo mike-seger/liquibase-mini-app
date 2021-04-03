@@ -1,6 +1,6 @@
 function postgres_run_server() {
-  docker rm -f local-pg &&
-    docker run --name local-pg -p $1:5432 -e POSTGRES_PASSWORD=secret -d postgres:13-alpine
+  docker rm -f local-pg
+  docker run --name local-pg -p $1:5432 -e POSTGRES_PASSWORD=secret -d postgres:13-alpine
 }
 
 function postgres_run_sql() {

@@ -25,7 +25,7 @@ dependencies {
 	implementation 'org.liquibase:liquibase-core:4.3.2'
 	implementation 'org.postgresql:postgresql:42.2.19'
 	implementation 'mysql:mysql-connector-java:8.0.23'
-	implementation 'com.oracle.ojdbc:ojdbc10:19.3.0.0'
+	implementation 'com.oracle.database.jdbc:ojdbc10:19.10.0.0'
 	implementation 'com.h2database:h2:1.4.200'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -34,4 +34,10 @@ dependencies {
 
 test {
 	useJUnitPlatform()
+}
+
+bootRun {
+	//Oracle requires the user.timezone system property
+	//this would help, but currently setting it in application
+	//systemProperty "user.timezone", "UTC"
 }
