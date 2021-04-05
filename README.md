@@ -1,45 +1,39 @@
-This is a mini SpringBoot application demonstrating liquibase for postgres, mysql and oracle.
-The DBs are run in docker and can be managed by the provided convenience scripts.
+# LiquiBase Mini App
 
-# DB servers
+This is a mini SpringBoot application demonstrating liquibase for a selection of DBs.
 
-## Postgresql
+## DB servers
+The docker-compose.yaml file defines the following dbs:
+- postgres 
+- oracle
+- mysql
+
+### Starting
+All DB servers can be started by issuing one of the commands in the repository root:
 ```
-# source shell convenience functions to manage DB in docker
-. src/test/resources/db/postgres/utils.sh
-
-postgres_run_server 25432
-postgres_sql_shell
-postgres_table_count_rows
-postgres_init_schema
-```
-
-## MySQL
-```
-# source shell convenience functions to manage DB in docker
-. src/test/resources/db/mysql/utils.sh
-
-mysql_run_server 33306
-mysql_sql_shell
-mysql_table_count_rows
-mysql_init_schema
+## start all DBs: postgres, oracle, mysql
+docker-compose up -d
+## start the selected DBs:
+docker-compose up -d postgres ...
 ```
 
-## Oracle
+### Running DB commands
+A shell function is provided to run commands on any of the started DBs.  
+The function can be activated by sourcing the common.sh script: 
 ```
-# source shell convenience functions to manage DB in docker
-. src/test/resources/db/oracle/utils.sh
-
-oracle_run_server 49521
-oracle_sql_shell
-oracle_table_count_rows
-oracle_init_schema
+. src/main/resources/common.sh
 ```
-More info:
-- https://hub.docker.com/r/oracleinanutshell/oracle-xe-11g
-- https://catonrug.blogspot.com/2019/12/run-oracle-xe-11g-via-docker.html
 
-# Start a liquibase migration
+The following commands are now available:
+```
+dbex postgres run_sql
+dbex postgres sql_shell
+dbex postgres init_schema
+dbex postgres table_count_rows
+```
+You can apply these commands to any of the other DBs listed above, instead of postgres.
+
+## Start a liquibase migration
 ```
 SPRING_PROFILES_ACTIVE=liquibase-migrate,h2 ./gradlew bootRun
 ```
@@ -47,4 +41,7 @@ Instead of h2, one of the following profiles can be used:
 - postgres
 - mysql
 - oracle
-```
+
+## Links
+- https://hub.docker.com/r/oracleinanutshell/oracle-xe-11g
+- https://catonrug.blogspot.com/2019/12/run-oracle-xe-11g-via-docker.html

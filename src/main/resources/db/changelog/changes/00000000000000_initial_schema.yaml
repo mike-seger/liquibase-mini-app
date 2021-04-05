@@ -81,8 +81,11 @@ databaseChangeLog:
             name: last_modified_by
             type: varchar(50)
         - column:
+            constraints:
+              nullable: false
             name: last_modified_date
             type: timestamp
+            defaultValueComputed: ${now}
         tableName: jhi_user
     - createTable:
         columns:

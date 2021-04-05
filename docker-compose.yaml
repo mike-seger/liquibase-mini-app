@@ -1,9 +1,10 @@
 version: '3.7'
 services:
+
   postgres:
     image: postgres:13-alpine
     restart: always
-    container_name: local-pg
+    container_name: postgres
     environment:
       - POSTGRES_PASSWORD=secret
       - PGOPTIONS=--search_path=user01
@@ -14,13 +15,13 @@ services:
     ports:
       - '65501:5432'
     volumes:
-      - ./dbutil/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
-      - ./dbutil/postgres/:/home/
+      - ./src/main/resources/dbutil/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./src/main/resources/dbutil/postgres/:/home/
 
   mysql:
     image: mysql:8.0.23
     restart: always
-    container_name: local-mysql
+    container_name: mysql
     environment:
       - MYSQL_ROOT_PASSWORD=secret
       - MYSQL_DATABASE=user01
@@ -36,13 +37,13 @@ services:
     ports:
       - '65502:3306'
     volumes:
-      - ./dbutil/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
-      - ./dbutil/mysql/:/home/
+      - ./src/main/resources/dbutil/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./src/main/resources/dbutil/mysql/:/home/
 
   oracle:
     image: oracleinanutshell/oracle-xe-11g:1.0.0
     restart: always
-    container_name: local-oracle
+    container_name: oracle
     environment:
       - TZ=UTC
       - ORACLE_PWD=secret
@@ -56,5 +57,5 @@ services:
     ports:
       - '65503:1521'
     volumes:
-      - ./dbutil/oracle/init.sql:/docker-entrypoint-initdb.d/init.sql
-      - ./dbutil/oracle/:/home/
+      - ./src/main/resources/dbutil/oracle/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./src/main/resources/dbutil/oracle/:/home/

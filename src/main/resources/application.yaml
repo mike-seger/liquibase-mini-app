@@ -29,7 +29,7 @@ spring.liquibase.parameters:
 spring.datasource:
   username: postgres
   password: secret
-  url: jdbc:postgresql://localhost:65501/
+  url: jdbc:postgresql://localhost:65501/user01
 #?user=user01
 #?user=user01"
 #/user01?currentSchema=user01
