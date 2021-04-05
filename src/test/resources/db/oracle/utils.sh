@@ -1,4 +1,4 @@
-export ORA_DB_USER=PUBLIC1
+export ORA_DB_USER=USER01
 export ORA_DB_PWD=secret
 export ORA_NAME=local-oracle
 export ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe
@@ -8,16 +8,6 @@ function oracle_init_schema() {
     DROP USER $ORA_DB_USER CASCADE;
     CREATE USER $ORA_DB_USER IDENTIFIED BY $ORA_DB_PWD;
     GRANT CONNECT, RESOURCE, DBA TO $ORA_DB_USER;"
-}
-
-function oracle_run_server() {
-  docker rm -f $ORA_NAME
-  docker run --name $ORA_NAME -d -p $1:1521 -e TZ=UTC --env JAVA_OPTS="-Doracle.jdbc.timezoneAsRegion=false -Duser.timezone=UTC" \
-    -e ORACLE_PWD="$ORA_DB_PWD" -e ORACLE_DISABLE_ASYNCH_IO=true \
-    -e ORACLE_CHARACTERSET=utf8 -e ORACLE_ALLOW_REMOTE=true oracleinanutshell/oracle-xe-11g:1.0.0
-  echo "Started DB server. Waiting for initialization"
-  sleep 25
-  oracle_init_schema >/dev/null
 }
 
 function oracle_run_sql() {

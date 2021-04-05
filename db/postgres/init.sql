@@ -1,0 +1,14 @@
+-- initialization
+DROP SCHEMA IF EXISTS user01 CASCADE;
+--DROP DATABASE IF EXISTS user01;
+--CREATE USER user01 WITH LOGIN CREATEROLE PASSWORD 'secret';
+CREATE USER user01 WITH PASSWORD 'secret';
+
+CREATE SCHEMA AUTHORIZATION user01;
+--SELECT pg_catalog.set_config('search_path', 'user01', false);
+--CREATE DATABASE user01 WITH OWNER user01;
+--GRANT ALL ON SCHEMA user01 TO user01;
+GRANT ALL PRIVILEGES ON SCHEMA user01 TO user01;
+--ALTER ROLE user01 SET search_path TO user01
+--ALTER DATABASE user01 SET search_path TO user01;
+--ALTER ROLE user01 IN DATABASE user01 SET search_path TO user01;

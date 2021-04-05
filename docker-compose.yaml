@@ -1,0 +1,60 @@
+version: '3.7'
+services:
+  postgres:
+    image: postgres:13-alpine
+    restart: always
+    container_name: local-pg
+    environment:
+      - POSTGRES_PASSWORD=secret
+      - PGOPTIONS=--search_path=user01
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+    ports:
+      - '65501:5432'
+    volumes:
+      - ./db/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./db/postgres/tables_row_count.sql:/tmp/tables_row_count.sql
+
+  mysql:
+    image: mysql:8.0.23
+    restart: always
+    container_name: local-mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_DATABASE=user01
+      - MYSQL_USER=user01
+      - MYSQL_PASSWORD=secret
+      - MYSQL_ROOT_HOST="%"
+    cap_add:
+      - SYS_NICE
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+    ports:
+      - '65502:3306'
+    volumes:
+      - ./db/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./db/mysql/tables_row_count.sql:/tmp/tables_row_count.sql
+
+  oracle:
+    image: oracleinanutshell/oracle-xe-11g:1.0.0
+    restart: always
+    container_name: local-oracle
+    environment:
+      - TZ=UTC
+      - ORACLE_PWD=secret
+      - ORACLE_DISABLE_ASYNCH_IO=true
+      - ORACLE_CHARACTERSET=utf8
+      - ORACLE_ALLOW_REMOTE=true
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+    ports:
+      - '65503:1521'
+    volumes:
+      - ./db/oracle/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./db/oracle/tables_row_count.sql:/tmp/tables_row_count.sql
