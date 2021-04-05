@@ -15,5 +15,5 @@ function mysql_init_schema() {
 }
 
 function mysql_table_count_rows() {
-  mysql_run_sql user01 "source /tmp/tables_row_count.sql;"
+  mysql_run_sql user01 "source /home/tables_row_count.sql;"
 }

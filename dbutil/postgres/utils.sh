@@ -18,5 +18,5 @@ function postgres_init_schema() {
 }
 
 function postgres_table_count_rows() {
-  postgres_run_sql "${1:-postgres}" "\i /tmp/tables_row_count.sql"
+  postgres_run_sql "${1:-postgres}" "\i /home/tables_row_count.sql"
 }

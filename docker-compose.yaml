@@ -14,8 +14,8 @@ services:
     ports:
       - '65501:5432'
     volumes:
-      - ./db/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
-      - ./db/postgres/tables_row_count.sql:/tmp/tables_row_count.sql
+      - ./dbutil/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./dbutil/postgres/:/home/
 
   mysql:
     image: mysql:8.0.23
@@ -36,8 +36,8 @@ services:
     ports:
       - '65502:3306'
     volumes:
-      - ./db/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
-      - ./db/mysql/tables_row_count.sql:/tmp/tables_row_count.sql
+      - ./dbutil/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./dbutil/mysql/:/home/
 
   oracle:
     image: oracleinanutshell/oracle-xe-11g:1.0.0
@@ -56,5 +56,5 @@ services:
     ports:
       - '65503:1521'
     volumes:
-      - ./db/oracle/init.sql:/docker-entrypoint-initdb.d/init.sql
-      - ./db/oracle/tables_row_count.sql:/tmp/tables_row_count.sql
+      - ./dbutil/oracle/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./dbutil/oracle/:/home/
