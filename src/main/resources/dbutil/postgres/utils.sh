@@ -8,17 +8,19 @@ pg_user=postgres
 get_pg_user='if [ $# -gt 1 ] ; then pg_user=$1; shift; fi;'
 
 function postgres_psql() {
-  echo docker exec -it postgres psql "$@"
+  docker exec -it postgres psql "$@"
 }
 
 function postgres_sql_shell() {
+  local run_sql
   eval "$get_pg_user"
-  local run_sql=/tmp/$(date +%s%N).sql
-  local args=""
-  if [ $# -gt 0 ] ; then
-    postgres_psql -U "$pg_user" <<<"$@"
+  if [[ $# -gt 0 && "$*" != "" ]] ; then
+    run_sql=/tmp/$(date +%s%N)-$pg_user.sql
+    # shellcheck disable=SC2059
+    printf "$@" >"$run_sql"
+    postgres_psql -d user01_db -U "$pg_user" -f "$run_sql"
   else
-    postgres_psql -U "$pg_user"
+    postgres_psql -d user01_db -U "$pg_user"
   fi
 }
 

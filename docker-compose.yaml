@@ -7,7 +7,7 @@ services:
     container_name: postgres
     environment:
       - POSTGRES_PASSWORD=secret
-      - PGOPTIONS=--search_path=user01
+      - PGOPTIONS=--search_path=user01_db
     logging:
       options:
         max-size: 10m

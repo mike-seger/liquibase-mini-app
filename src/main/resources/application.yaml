@@ -27,9 +27,9 @@ spring.liquibase.parameters:
   float.type: float4
   now: current_timestamp
 spring.datasource:
-  username: postgres
+  username: user01
   password: secret
-  url: jdbc:postgresql://localhost:65501/user01
+  url: jdbc:postgresql://localhost:65501/user01_db
 #?user=user01
 #?user=user01"
 #/user01?currentSchema=user01
