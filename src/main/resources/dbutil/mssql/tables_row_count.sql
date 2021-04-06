@@ -9,8 +9,6 @@ WHERE
       sOBJ.type = 'U'
       AND sOBJ.is_ms_shipped = 0x0
       AND index_id < 2 -- 0:Heap, 1:Clustered
-GROUP BY
-      sOBJ.schema_id
-      , sOBJ.name
-ORDER BY [RowCount] DESC;
+GROUP BY sOBJ.schema_id, sOBJ.name
+ORDER BY [RowCount] DESC, [TableName];
 GO

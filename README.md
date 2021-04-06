@@ -48,4 +48,4 @@ Instead of h2, one of the following profiles can be used:
 - https://hub.docker.com/r/oracleinanutshell/oracle-xe-11g
 - https://catonrug.blogspot.com/2019/12/run-oracle-xe-11g-via-docker.html
 - https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-docker-container-deployment?view=sql-server-ver15&pivots=cs1-bash
-
+- https://www.mssqltips.com/sqlservertip/2537/sql-server-row-count-for-all-tables-in-a-database/

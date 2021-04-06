@@ -56,7 +56,7 @@ spring.config.activate.on-profile: mssql
 spring.liquibase.parameters:
   clob.type: varchar(2048)
   float.type: float
-  now: getdate()
+  now: current_timestamp
 spring.datasource:
   username: ${DB_USER}
   password: ${DB_PASSWORD}
