@@ -1,8 +1,8 @@
 spring:
   liquibase:
     enabled: false
-    default-schema: user01
-  datasource.hikari.schema: user01
+#    default-schema: user01
+#  datasource.hikari.schema: user01
 ---
 spring.config.activate.on-profile: debug
 logging.level:
@@ -29,6 +29,7 @@ spring.liquibase.parameters:
 spring.datasource:
   username: user01
   password: secret
+#  url: jdbc:postgresql://localhost:65501/
   url: jdbc:postgresql://localhost:65501/user01_db
 #?user=user01
 #?user=user01"
