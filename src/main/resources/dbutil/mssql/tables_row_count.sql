@@ -1,3 +1,16 @@
-SELECT * FROM (SELECT TABLE_NAME,SUM(TABLE_ROWS) AS ROW_COUNT
-FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = DATABASE()
-GROUP BY TABLE_NAME) T ORDER BY row_count DESC, TABLE_NAME;
+SELECT
+      SCHEMA_NAME(sOBJ.schema_id) + '.' + sOBJ.name AS [TableName]
+      , SUM(sPTN.Rows) AS [RowCount]
+FROM
+      sys.objects AS sOBJ
+      INNER JOIN sys.partitions AS sPTN
+            ON sOBJ.object_id = sPTN.object_id
+WHERE
+      sOBJ.type = 'U'
+      AND sOBJ.is_ms_shipped = 0x0
+      AND index_id < 2 -- 0:Heap, 1:Clustered
+GROUP BY
+      sOBJ.schema_id
+      , sOBJ.name
+ORDER BY [RowCount] DESC;
+GO

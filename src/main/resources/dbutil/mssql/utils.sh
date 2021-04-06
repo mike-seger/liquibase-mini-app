@@ -1,10 +1,12 @@
 . /home/.env
 
 export CONTAINER_NAME=mssql
+SQLCMD_OPTS="-W -w 999 -v NOCOUNT=OFF -S localhost -d ${DB_NAME}"
 
 function mssql_sqlcmd() {
   # shellcheck disable=SC2145
-  docker exec -it mssql bash -c "/opt/mssql-tools/bin/sqlcmd -S localhost $@"
+  # shellcheck disable=SC2016
+  docker exec -it mssql bash -c "/opt/mssql-tools/bin/sqlcmd -s "	" $SQLCMD_OPTS $@"
 }
 
 function mssql_sql_script() {

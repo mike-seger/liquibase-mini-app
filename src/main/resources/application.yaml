@@ -52,6 +52,16 @@ spring.datasource:
   password: ${DB_PASSWORD}
   url: jdbc:oracle:thin:@localhost:65503:xe
 ---
+spring.config.activate.on-profile: mssql
+spring.liquibase.parameters:
+  clob.type: varchar(2048)
+  float.type: float
+  now: getdate()
+spring.datasource:
+  username: ${DB_USER}
+  password: ${DB_PASSWORD}
+  url: jdbc:sqlserver://localhost:65504;databaseName=${DB_NAME}
+---
 spring.config.activate.on-profile: liquibase-migrate
 spring:
   main:
