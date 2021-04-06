@@ -1,4 +1,5 @@
-. /home/utils.sh
+. /home/.env
+. /home/db/utils.sh
 
 unset -f postgres_psql
 function postgres_psql() {

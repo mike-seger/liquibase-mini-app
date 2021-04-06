@@ -37,7 +37,9 @@ test {
 }
 
 bootRun {
-	//Oracle requires the user.timezone system property
-	//this would help, but currently setting it in application
-	//systemProperty "user.timezone", "UTC"
+	def sysProps = System.properties
+	file(".env").withInputStream {
+		stream -> sysProps.load(stream)
+	}
+	sysProps.each { prop, val -> systemProperty prop.toString(), val.toString() }
 }

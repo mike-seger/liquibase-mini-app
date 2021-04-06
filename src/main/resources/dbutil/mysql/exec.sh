@@ -1,6 +1,7 @@
-. /home/utils.sh
+. /home/.env
+. /home/db/utils.sh
 
-mysql_user=user01
+mysql_user=${DB_USER}
 # shellcheck disable=SC2016
 get_mysql_user='if [ $# -gt 1 ] ; then mysql_user=$1; shift; fi;'
 
@@ -14,4 +15,3 @@ shift
 
 eval "$get_mysql_user"
 $cmd "$mysql_user" "$@"
-

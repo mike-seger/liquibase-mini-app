@@ -1,8 +1,8 @@
 spring:
   liquibase:
     enabled: false
-#    default-schema: user01
-#  datasource.hikari.schema: user01
+#    default-schema: ${DB_SCHEMA}
+#  datasource.hikari.schema: ${DB_USER}
 ---
 spring.config.activate.on-profile: debug
 logging.level:
@@ -27,13 +27,10 @@ spring.liquibase.parameters:
   float.type: float4
   now: current_timestamp
 spring.datasource:
-  username: user01
-  password: secret
+  username: ${DB_USER}
+  password: ${DB_PASSWORD}
 #  url: jdbc:postgresql://localhost:65501/
-  url: jdbc:postgresql://localhost:65501/user01_db
-#?user=user01
-#?user=user01"
-#/user01?currentSchema=user01
+  url: jdbc:postgresql://localhost:65501/${DB_NAME}
 ---
 spring.config.activate.on-profile: mysql
 spring.liquibase.parameters:
@@ -41,9 +38,9 @@ spring.liquibase.parameters:
   float.type: float
   now: now()
 spring.datasource:
-  username: user01
-  password: secret
-  url: jdbc:mysql://localhost:65502/user01
+  username: ${DB_USER}
+  password: ${DB_PASSWORD}
+  url: jdbc:mysql://localhost:65502/${DB_SCHEMA}
 ---
 spring.config.activate.on-profile: oracle
 spring.liquibase.parameters:
@@ -51,8 +48,8 @@ spring.liquibase.parameters:
   float.type: float
   now: sysdate
 spring.datasource:
-  username: USER01
-  password: secret
+  username: ${DB_USER}
+  password: ${DB_PASSWORD}
   url: jdbc:oracle:thin:@localhost:65503:xe
 ---
 spring.config.activate.on-profile: liquibase-migrate

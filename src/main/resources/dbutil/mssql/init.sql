@@ -1,0 +1,27 @@
+-- Schema initialization
+CREATE DATABASE user01;
+GO
+
+USE user01;
+GO
+
+DROP SCHEMA user01;
+GO
+
+DROP USER user01;
+GO
+
+CREATE SCHEMA user01;
+GO
+
+CREATE LOGIN user01 WITH PASSWORD = 'Secret01', DEFAULT_DATABASE = master;
+GO
+
+--CREATE USER user01 FOR LOGIN user01 user01 WITH DEFAULT_SCHEMA = user01;
+--GO
+
+--ALTER LOGIN [user01] WITH DEFAULT_DATABASE = master
+--GO
+
+--CREATE SCHEMA user01 AUTHORIZATION [user01];
+--GO

@@ -6,39 +6,35 @@ services:
     restart: always
     container_name: postgres
     environment:
-      - POSTGRES_PASSWORD=secret
-      - PGOPTIONS=--search_path=user01_db
-    logging:
-      options:
-        max-size: 10m
-        max-file: "3"
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - PGOPTIONS=--search_path=${DB_SCHEMA}
     ports:
       - '65501:5432'
     volumes:
       - ./src/main/resources/dbutil/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
-      - ./src/main/resources/dbutil/postgres/:/home/
+      - ./src/main/resources/dbutil/postgres/:/home/db/
+      - ./src/main/resources/docker/:/home/docker/
+      - ./.env:/home/.env
 
   mysql:
     image: mysql:8.0.23
     restart: always
     container_name: mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=secret
-      - MYSQL_DATABASE=user01
-      - MYSQL_USER=user01
-      - MYSQL_PASSWORD=secret
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
       - MYSQL_ROOT_HOST="%"
     cap_add:
       - SYS_NICE
-    logging:
-      options:
-        max-size: 10m
-        max-file: "3"
     ports:
       - '65502:3306'
     volumes:
       - ./src/main/resources/dbutil/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
-      - ./src/main/resources/dbutil/mysql/:/home/
+      - ./src/main/resources/dbutil/mysql/:/home/db/
+      - ./src/main/resources/docker/:/home/docker/
+      - ./.env:/home/.env
 
   oracle:
     image: oracleinanutshell/oracle-xe-11g:1.0.0
@@ -46,16 +42,30 @@ services:
     container_name: oracle
     environment:
       - TZ=UTC
-      - ORACLE_PWD=secret
+      - ORACLE_PWD=${DB_PASSWORD}
       - ORACLE_DISABLE_ASYNCH_IO=true
       - ORACLE_CHARACTERSET=utf8
       - ORACLE_ALLOW_REMOTE=true
-    logging:
-      options:
-        max-size: 10m
-        max-file: "3"
     ports:
       - '65503:1521'
     volumes:
       - ./src/main/resources/dbutil/oracle/init.sql:/docker-entrypoint-initdb.d/init.sql
-      - ./src/main/resources/dbutil/oracle/:/home/
+      - ./src/main/resources/dbutil/oracle/:/home/db/
+      - ./src/main/resources/docker/:/home/docker/
+      - ./.env:/home/.env
+
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+#    build: ./src/main/resources/dbutil/mssql/docker/
+    restart: always
+    container_name: mssql
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=${DB_PASSWORD}
+    command: ["/bin/bash", "/home/db/docker/entrypoint.sh"]
+    ports:
+      - '65504:1433'
+    volumes:
+      - ./src/main/resources/dbutil/mssql/:/home/db/
+      - ./src/main/resources/docker/:/home/docker/
+      - ./.env:/home/.env

@@ -1,0 +1,1 @@
+ /bin/bash /home/db/docker/db-init.sh & /opt/mssql/bin/sqlservr

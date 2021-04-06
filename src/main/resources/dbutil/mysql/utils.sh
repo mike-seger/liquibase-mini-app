@@ -1,6 +1,10 @@
+. /home/.env
+
+export CONTAINER_NAME=mysql
+
 function mysql_mysql() {
   # shellcheck disable=SC2145
-  docker exec -it mysql -e MYSQL_PWD=secret bash -c "mysql $@"
+  docker exec -it mysql -e MYSQL_PWD="${DB_PASSWORD}" bash -c "mysql $@"
 }
 
 function mysql_run_sql() {
@@ -8,17 +12,17 @@ function mysql_run_sql() {
   local user="$1"
   shift
   echo "$*" >"$run_sql"
-  MYSQL_PWD=secret mysql_mysql -u "$user" user01 -e "source $run_sql"
+  MYSQL_PWD="${DB_PASSWORD}" mysql_mysql -u "$user" "${DB_NAME}" -e "source $run_sql"
 }
 
 function mysql_sql_shell() {
-  mysql_mysql -u "$1" -psecret
+  mysql_mysql -u "${1:-$DB_USER}" -p"${DB_PASSWORD}"
 }
 
 function mysql_init_schema() {
-  mysql_run_sql root "source /docker-entrypoint-initdb.d/init.sql"
+  mysql_run_sql root "source /home/db/init.sql"
 }
 
 function mysql_table_count_rows() {
-  mysql_run_sql "$1" "source /home/tables_row_count.sql;"
+  mysql_run_sql "${1:-$DB_USER}" "source /home/db/tables_row_count.sql"
 }

@@ -1,27 +1,29 @@
-# LiquiBase Mini App
+# Liquibase Mini App
 
-This is a mini SpringBoot application demonstrating liquibase for a selection of DBs.
+This is a core SpringBoot application demonstrating a portable liquibase configuration for a selection of databases.
+The configuration contains a typical set of tables and data.
 
-## DB servers
-The docker-compose.yaml file defines the following dbs:
+## Databases
+The docker-compose.yaml file provides the following databases as a service:
 - postgres 
 - oracle
 - mysql
 
 ### Starting
-All DB servers can be started by issuing one of the commands in the repository root:
+Database servers can be started by issuing one of the commands from the repository root:
 ```
 ## start all DBs: postgres, oracle, mysql
 docker-compose up -d
-## start the selected DBs:
+## start "just" selected DBs:
 docker-compose up -d postgres ...
 ```
+The databases will initially contain no user tables.
 
 ### Running DB commands
-A shell function is provided to run commands on any of the started DBs.  
+A convenience bash function is provided to run commands on any of the started DBs.  
 The function can be activated by sourcing the common.sh script: 
 ```
-. src/main/resources/common.sh
+. src/main/resources/dbutil/common/common.sh
 ```
 
 The following commands are now available:
@@ -31,9 +33,9 @@ dbex postgres sql_shell
 dbex postgres init_schema
 dbex postgres table_count_rows
 ```
-You can apply these commands to any of the other DBs listed above, instead of postgres.
+Any started database from above can be accessed, instead of postgres.
 
-## Start a liquibase migration
+## Run a liquibase migration
 ```
 SPRING_PROFILES_ACTIVE=liquibase-migrate,h2 ./gradlew bootRun
 ```
@@ -45,3 +47,5 @@ Instead of h2, one of the following profiles can be used:
 ## Links
 - https://hub.docker.com/r/oracleinanutshell/oracle-xe-11g
 - https://catonrug.blogspot.com/2019/12/run-oracle-xe-11g-via-docker.html
+- https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-docker-container-deployment?view=sql-server-ver15&pivots=cs1-bash
+
