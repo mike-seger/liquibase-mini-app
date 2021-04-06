@@ -22,7 +22,7 @@ function oracle_run_sql() {
 }
 
 function oracle_sql_shell() {
-  oracle_run_sql0 "$ORACLE_HOME/bin/sqlplus ${1:-$DB_USER}/${DB_PASSWORD}@XE"
+  oracle_run_sql0 "$ORACLE_HOME/bin/sqlplus" "${DB_USER}/${DB_PASSWORD}@XE"
 }
 
 function oracle_init_schema() {

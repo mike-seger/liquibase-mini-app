@@ -18,7 +18,7 @@ function postgres_sql_shell() {
     printf "$@" >"$run_sql"
     postgres_sql_script "$user" "$run_sql"
   else
-    postgres_psql -d "${DB_NAME}" -U "$user"
+    postgres_psql -d "${DB_NAME}" -U "$DB_USER"
   fi
 }
 

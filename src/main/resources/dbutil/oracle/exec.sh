@@ -2,7 +2,7 @@
 
 unset -f oracle_run_sql0
 function oracle_run_sql0() {
-  bash -c "$@"
+  bash -c "$*"
 }
 
 cmd="oracle_$1"
