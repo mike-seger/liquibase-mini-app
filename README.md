@@ -12,15 +12,15 @@ The docker-compose.yaml file provides the following databases as a service:
 ### Starting
 Database servers can be started by issuing one of the commands from the repository root:
 ```
-## start all DBs: postgres, oracle, mysql
+## start all database servers: postgres, oracle, mysql
 docker-compose up -d
-## start "just" selected DBs:
+## start "just" selected database servers:
 docker-compose up -d postgres ...
 ```
 The databases will initially contain no user tables.
 
 ### Running DB commands
-A convenience bash function is provided to run commands on any of the started DBs.  
+A convenience bash function is provided to run commands on any of the started databases.  
 The function can be activated by sourcing the common.sh script: 
 ```
 . src/main/resources/dbutil/common/common.sh
