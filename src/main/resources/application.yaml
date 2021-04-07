@@ -62,6 +62,8 @@ spring.datasource:
   password: ${DB_PASSWORD}
   url: jdbc:sqlserver://localhost:65504;databaseName=${DB_NAME}
 ---
+### sqlite: current_timestamp
+
 spring.config.activate.on-profile: liquibase-migrate
 spring:
   main:
