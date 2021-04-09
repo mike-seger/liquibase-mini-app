@@ -3,7 +3,14 @@ databaseChangeLog:
     id: 20170617213421-2
     author: jhipster
     objectQuotingStrategy: LEGACY
+    dbms: "!sqlite"
     changes:
+    - addPrimaryKey:
+        columnNames: article_id, tags_id
+        tableName: article_tag
+    - addPrimaryKey:
+        columnNames: article_id, favorited_id
+        tableName: article_favorited
     - addForeignKeyConstraint:
         baseColumnNames: article_id
         baseTableName: article_tag

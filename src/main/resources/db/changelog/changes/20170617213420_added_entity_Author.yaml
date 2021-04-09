@@ -38,6 +38,4 @@ databaseChangeLog:
             name: author_id
             type: bigint
         tableName: author_follower
-    - addPrimaryKey:
-        columnNames: author_id, follower_id
-        tableName: author_follower
+

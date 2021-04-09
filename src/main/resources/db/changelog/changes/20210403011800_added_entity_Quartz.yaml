@@ -17,9 +17,6 @@ databaseChangeLog:
             name: lock_name
             type: varchar(40)
         tableName: qrtz_locks
-    - addPrimaryKey:
-        columnNames: sched_name, lock_name
-        tableName: qrtz_locks
     - createTable:
         columns:
         - column:
@@ -79,9 +76,6 @@ databaseChangeLog:
         - column:
             name: requests_recovery
             type: boolean
-        tableName: qrtz_fired_triggers
-    - addPrimaryKey:
-        columnNames: sched_name, entry_id
         tableName: qrtz_fired_triggers
     - createIndex:
         columns:
@@ -155,9 +149,6 @@ databaseChangeLog:
             name: calendar
             type: blob
         tableName: qrtz_calendars
-    - addPrimaryKey:
-        columnNames: sched_name, calendar_name
-        tableName: qrtz_calendars
     - createTable:
         columns:
         - column:
@@ -170,9 +161,6 @@ databaseChangeLog:
               nullable: false
             name: trigger_group
             type: varchar(200)
-        tableName: qrtz_paused_trigger_grps
-    - addPrimaryKey:
-        columnNames: sched_name, trigger_group
         tableName: qrtz_paused_trigger_grps
     - createTable:
         columns:
@@ -196,9 +184,6 @@ databaseChangeLog:
               nullable: false
             name: checkin_interval
             type: bigint
-        tableName: qrtz_scheduler_state
-    - addPrimaryKey:
-        columnNames: sched_name, instance_name
         tableName: qrtz_scheduler_state
     - createTable:
         columns:
@@ -248,9 +233,6 @@ databaseChangeLog:
         - column:
             name: job_data
             type: blob
-        tableName: qrtz_job_details
-    - addPrimaryKey:
-        columnNames: sched_name, job_name, job_group
         tableName: qrtz_job_details
     - createIndex:
         columns:
@@ -334,9 +316,6 @@ databaseChangeLog:
         - column:
             name: job_data
             type: blob
-        tableName: qrtz_triggers
-    - addPrimaryKey:
-        columnNames: sched_name, trigger_name, trigger_group
         tableName: qrtz_triggers
     - createIndex:
         columns:
@@ -467,9 +446,6 @@ databaseChangeLog:
             name: blob_data
             type: blob
         tableName: qrtz_blob_triggers
-    - addPrimaryKey:
-        columnNames: sched_name, trigger_name, trigger_group
-        tableName: qrtz_blob_triggers
     - createTable:
         columns:
         - column:
@@ -521,9 +497,6 @@ databaseChangeLog:
             name: bool_prop_2
             type: boolean
         tableName: qrtz_simprop_triggers
-    - addPrimaryKey:
-        columnNames: sched_name, trigger_name, trigger_group
-        tableName: qrtz_simprop_triggers
     - createTable:
         columns:
         - column:
@@ -549,9 +522,6 @@ databaseChangeLog:
         - column:
             name: time_zone_id
             type: varchar(80)
-        tableName: qrtz_cron_triggers
-    - addPrimaryKey:
-        columnNames: sched_name, trigger_name, trigger_group
         tableName: qrtz_cron_triggers
     - createTable:
         columns:
@@ -586,6 +556,42 @@ databaseChangeLog:
             name: times_triggered
             type: bigint
         tableName: qrtz_simple_triggers
+- changeSet:
+    id: quartz-constraints
+    author: jhipster
+    objectQuotingStrategy: LEGACY
+    dbms: "!sqlite"
+    changes:
+    - addPrimaryKey:
+        columnNames: sched_name, lock_name
+        tableName: qrtz_locks
+    - addPrimaryKey:
+        columnNames: sched_name, entry_id
+        tableName: qrtz_fired_triggers
+    - addPrimaryKey:
+        columnNames: sched_name, calendar_name
+        tableName: qrtz_calendars
+    - addPrimaryKey:
+        columnNames: sched_name, trigger_group
+        tableName: qrtz_paused_trigger_grps
+    - addPrimaryKey:
+        columnNames: sched_name, instance_name
+        tableName: qrtz_scheduler_state
+    - addPrimaryKey:
+        columnNames: sched_name, job_name, job_group
+        tableName: qrtz_job_details
+    - addPrimaryKey:
+        columnNames: sched_name, trigger_name, trigger_group
+        tableName: qrtz_triggers
+    - addPrimaryKey:
+        columnNames: sched_name, trigger_name, trigger_group
+        tableName: qrtz_blob_triggers
+    - addPrimaryKey:
+        columnNames: sched_name, trigger_name, trigger_group
+        tableName: qrtz_simprop_triggers
+    - addPrimaryKey:
+        columnNames: sched_name, trigger_name, trigger_group
+        tableName: qrtz_cron_triggers
     - addPrimaryKey:
         columnNames: sched_name, trigger_name, trigger_group
         tableName: qrtz_simple_triggers
@@ -619,4 +625,3 @@ databaseChangeLog:
         constraintName: qrtz_blb_trg_schd_name_fkey
         referencedColumnNames: sched_name, trigger_name, trigger_group
         referencedTableName: qrtz_triggers
-

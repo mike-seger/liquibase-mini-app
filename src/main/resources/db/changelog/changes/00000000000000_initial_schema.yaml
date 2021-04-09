@@ -68,7 +68,7 @@ databaseChangeLog:
             type: varchar(50)
         - column:
             constraints:
-              nullable: false
+              nullable: true
             defaultValueComputed: ${now}
             name: created_date
             type: timestamp
@@ -82,7 +82,7 @@ databaseChangeLog:
             type: varchar(50)
         - column:
             constraints:
-              nullable: false
+              nullable: true
             name: last_modified_date
             type: timestamp
             defaultValueComputed: ${now}
@@ -109,21 +109,6 @@ databaseChangeLog:
             name: authority_name
             type: varchar(50)
         tableName: jhi_user_authority
-    - addPrimaryKey:
-        columnNames: user_id, authority_name
-        tableName: jhi_user_authority
-    - addForeignKeyConstraint:
-        baseColumnNames: authority_name
-        baseTableName: jhi_user_authority
-        constraintName: fk_authority_name
-        referencedColumnNames: name
-        referencedTableName: jhi_authority
-    - addForeignKeyConstraint:
-        baseColumnNames: user_id
-        baseTableName: jhi_user_authority
-        constraintName: fk_user_id
-        referencedColumnNames: id
-        referencedTableName: jhi_user
     - createTable:
         columns:
         - column:
@@ -161,15 +146,6 @@ databaseChangeLog:
             name: value
             type: varchar(255)
         tableName: jhi_persistent_audit_evt_data
-    - addPrimaryKey:
-        columnNames: event_id, name
-        tableName: jhi_persistent_audit_evt_data
-    - addForeignKeyConstraint:
-        baseColumnNames: event_id
-        baseTableName: jhi_persistent_audit_evt_data
-        constraintName: fk_evt_pers_audit_evt_data
-        referencedColumnNames: event_id
-        referencedTableName: jhi_persistent_audit_event
     - createTable:
         columns:
         - column:
@@ -223,12 +199,6 @@ databaseChangeLog:
             name: expire_time
             type: bigint
         tableName: jhi_social_user_connection
-    - addUniqueConstraint:
-        columnNames: user_id, provider_id, provider_user_id
-        tableName: jhi_social_user_connection
-    - addUniqueConstraint:
-        columnNames: user_id, provider_id, rank
-        tableName: jhi_social_user_connection
 
 - changeSet:
     id: '00000000000002'
@@ -256,25 +226,63 @@ databaseChangeLog:
     id: '00000000000003'
     author: jhipster
     objectQuotingStrategy: LEGACY
+    dbms: "!sqlite"
+    changes:
+#    - dropDefaultValue:
+#        columnDataType: datetime
+#        columnName: created_date
+#        tableName: jhi_user
+    - addPrimaryKey:
+        columnNames: user_id, authority_name
+        tableName: jhi_user_authority
+    - addPrimaryKey:
+        columnNames: event_id, name
+        tableName: jhi_persistent_audit_evt_data
+    - addUniqueConstraint:
+        columnNames: user_id, provider_id, rank
+        tableName: jhi_social_user_connection
+    - addUniqueConstraint:
+        columnNames: user_id, provider_id, provider_user_id
+        tableName: jhi_social_user_connection
+    - addForeignKeyConstraint:
+        baseColumnNames: authority_name
+        baseTableName: jhi_user_authority
+        constraintName: fk_authority_name
+        referencedColumnNames: name
+        referencedTableName: jhi_authority
+    - addForeignKeyConstraint:
+        baseColumnNames: user_id
+        baseTableName: jhi_user_authority
+        constraintName: fk_user_id
+        referencedColumnNames: id
+        referencedTableName: jhi_user
+    - addForeignKeyConstraint:
+        baseColumnNames: event_id
+        baseTableName: jhi_persistent_audit_evt_data
+        constraintName: fk_evt_pers_audit_evt_data
+        referencedColumnNames: event_id
+        referencedTableName: jhi_persistent_audit_event
+
+
+- changeSet:
+    id: '00000000000004'
+    author: jhipster
+    objectQuotingStrategy: LEGACY
     changes:
     - loadData:
         columns:
         - column:
             name: activated
             type: boolean
-        - column:
-            name: created_date
-            type: timestamp
+#        - column:
+#            name: created_date
+#            type: timestamp
         commentLineStartsWith: '#'
         encoding: UTF-8
         file: ../data/users.csv
         quotchar: '"'
         relativeToChangelogFile: true
         separator: ;
-        tableName: jhi_user
-    - dropDefaultValue:
-        columnDataType: datetime
-        columnName: created_date
         tableName: jhi_user
     - loadData:
         commentLineStartsWith: '#'
@@ -294,7 +302,7 @@ databaseChangeLog:
         tableName: jhi_user_authority
 
 - changeSet:
-    id: '00000000000004'
+    id: '00000000000005'
     author: jhipster
     objectQuotingStrategy: LEGACY
     dbms: "!oracle"

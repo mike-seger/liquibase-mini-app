@@ -3,7 +3,11 @@ databaseChangeLog:
     id: 20170617213423-2
     author: jhipster
     objectQuotingStrategy: LEGACY
+    dbms: "!sqlite"
     changes:
+    - addPrimaryKey:
+        columnNames: author_id, follower_id
+        tableName: author_follower
     - addForeignKeyConstraint:
         baseColumnNames: user_id
         baseTableName: author

@@ -17,30 +17,27 @@ databaseChangeLog:
             constraints:
               nullable: false
             name: slug
-            type: varchar(255)
+            type: varchar(32)
         - column:
             constraints:
               nullable: false
             name: title
-            type: varchar(255)
+            type: varchar(32)
         - column:
             constraints:
               nullable: false
             name: description
-            type: varchar(255)
+            type: varchar(32)
         - column:
             constraints:
-              nullable: false
-            name: jhi_body
-            type: ${clob.type}
-        - column:
-            constraints:
-              nullable: false
+              nullable: true
+            defaultValueComputed: ${now}
             name: created_at
             type: timestamp
         - column:
             constraints:
-              nullable: false
+              nullable: true
+            defaultValueComputed: ${now}
             name: updated_at
             type: timestamp
         - column:
@@ -48,14 +45,11 @@ databaseChangeLog:
               nullable: true
             name: author_id
             type: bigint
-        tableName: article
-    - dropDefaultValue:
-        columnDataType: datetime
-        columnName: created_at
-        tableName: article
-    - dropDefaultValue:
-        columnDataType: datetime
-        columnName: updated_at
+        - column:
+            constraints:
+              nullable: false
+            name: jhi_body
+            type: ${clob.type}
         tableName: article
     - createTable:
         columns:
@@ -70,9 +64,6 @@ databaseChangeLog:
             name: article_id
             type: bigint
         tableName: article_tag
-    - addPrimaryKey:
-        columnNames: article_id, tags_id
-        tableName: article_tag
     - createTable:
         columns:
         - column:
@@ -86,7 +77,18 @@ databaseChangeLog:
             name: article_id
             type: bigint
         tableName: article_favorited
-    - addPrimaryKey:
-        columnNames: article_id, favorited_id
-        tableName: article_favorited
 
+#- changeSet:
+#    id: 20170617213421-2
+#    author: jhipster
+#    objectQuotingStrategy: LEGACY
+#    dbms: "!sqlite"
+#    changes:
+#    - dropDefaultValue:
+#        columnDataType: datetime
+#        columnName: created_at
+#        tableName: article
+#    - dropDefaultValue:
+#        columnDataType: datetime
+#        columnName: updated_at
+#        tableName: article

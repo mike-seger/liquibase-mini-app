@@ -62,13 +62,20 @@ spring.datasource:
   password: ${DB_PASSWORD}
   url: jdbc:sqlserver://localhost:65504;databaseName=${DB_NAME}
 ---
-### sqlite: current_timestamp
-
+spring.config.activate.on-profile: sqlite
+spring.liquibase.parameters:
+  clob.type: varchar(65000)
+  float.type: float
+  now: current_timestamp
+spring.datasource:
+  url: jdbc:sqlite:${java.io.tmpdir:/tmp/}sqlite-db-${DB_NAME}.db
+  platform: org.sqlite.hibernate.dialect.SQLiteDialect
+---
 spring.config.activate.on-profile: liquibase-migrate
 spring:
   main:
     web-application-type: none
   autoconfigure.exclude:
-    - org.springframework.boot.autoconfigure.task.TaskSchedulingConfiguration
+  - org.springframework.boot.autoconfigure.task.TaskSchedulingConfiguration
   liquibase: 
     enabled: true

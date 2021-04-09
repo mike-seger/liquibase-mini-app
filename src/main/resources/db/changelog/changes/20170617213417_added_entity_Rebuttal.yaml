@@ -17,15 +17,16 @@ databaseChangeLog:
             constraints:
               nullable: true
             name: long_name
-            type: varchar(1200)
+            type: varchar(80)
         - column:
             constraints:
               nullable: true
             name: short_name
-            type: varchar(255)
+            type: varchar(80)
         - column:
             constraints:
               nullable: true
+            defaultValueComputed: ${now}
             name: jhi_date
             type: timestamp
         - column:
@@ -39,12 +40,18 @@ databaseChangeLog:
             name: jhi_link
             type: varchar(255)
         tableName: rebuttal
-    - dropDefaultValue:
-        columnDataType: datetime
-        columnName: jhi_date
-        tableName: rebuttal
-    - dropDefaultValue:
-        columnDataType: datetime
-        columnName: expires
-        tableName: rebuttal
+#- changeSet:
+#    id: 20170617213417-2
+#    author: jhipster
+#    objectQuotingStrategy: LEGACY
+#    dbms: "!sqlite"
+#    changes:
+#    - dropDefaultValue:
+#        columnDataType: datetime
+#        columnName: jhi_date
+#        tableName: rebuttal
+#    - dropDefaultValue:
+#        columnDataType: datetime
+#        columnName: expires
+#        tableName: rebuttal
 

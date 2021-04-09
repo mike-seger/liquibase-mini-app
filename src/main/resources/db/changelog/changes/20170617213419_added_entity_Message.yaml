@@ -34,6 +34,12 @@ databaseChangeLog:
             name: updated_at
             type: timestamp
         tableName: message
+- changeSet:
+    id: 20170617213419-2
+    author: jhipster
+    objectQuotingStrategy: LEGACY
+    dbms: "!sqlite"
+    changes:
     - dropDefaultValue:
         columnDataType: datetime
         columnName: created_at

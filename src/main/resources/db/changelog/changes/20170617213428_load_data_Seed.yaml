@@ -71,27 +71,30 @@ databaseChangeLog:
         - loadData:
             commentLineStartsWith: '#'
             encoding: UTF-8
-            file: ../data/article.csv
-            quotchar: '"'
-            relativeToChangelogFile: true
-            separator: ','
-            tableName: article
-        - loadData:
-            commentLineStartsWith: '#'
-            encoding: UTF-8
             file: ../data/tag.csv
             quotchar: '"'
             relativeToChangelogFile: true
             separator: ','
             tableName: tag
-        - loadData:
-            commentLineStartsWith: '#'
-            encoding: UTF-8
-            file: ../data/article-tag.csv
-            quotchar: '"'
-            relativeToChangelogFile: true
-            separator: ','
-            tableName: article_tag
+
+#        - loadData:
+#            commentLineStartsWith: '#'
+#            encoding: UTF-8
+#            file: ../data/article.csv
+#            quotchar: '"'
+#            relativeToChangelogFile: true
+#            separator: ','
+#            tableName: article
+#
+#        - loadData:
+#            commentLineStartsWith: '#'
+#            encoding: UTF-8
+#            file: ../data/article-tag.csv
+#            quotchar: '"'
+#            relativeToChangelogFile: true
+#            separator: ','
+#            tableName: article_tag
+
         - loadData:
             commentLineStartsWith: '#'
             encoding: UTF-8

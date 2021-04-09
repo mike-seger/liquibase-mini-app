@@ -69,3 +69,16 @@ services:
       - ./src/main/resources/dbutil/mssql/:/home/db/
       - ./src/main/resources/docker/:/home/docker/
       - ./.env:/home/.env
+
+  sqlite:
+    image: ghcr.io/linuxserver/sqlitebrowser
+    container_name: sqlite
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - ./build/sqlite
+    ports:
+      - 65505:3000
+    restart: unless-stopped

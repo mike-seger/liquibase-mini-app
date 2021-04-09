@@ -39,6 +39,12 @@ databaseChangeLog:
             name: author_id
             type: bigint
         tableName: comment
+- changeSet:
+    id: 20170617213422-2
+    author: jhipster
+    objectQuotingStrategy: LEGACY
+    dbms: "!sqlite"
+    changes:
     - dropDefaultValue:
         columnDataType: datetime
         columnName: created_at
