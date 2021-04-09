@@ -78,7 +78,7 @@ services:
       - PGID=1000
       - TZ=Europe/London
     volumes:
-      - ./build/sqlite
+      - ./build/sqlite:/config
     ports:
       - 65505:3000
     restart: unless-stopped
